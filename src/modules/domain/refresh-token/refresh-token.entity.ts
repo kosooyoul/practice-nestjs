@@ -1,9 +1,7 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
 import { ObjectId } from '@/common/types';
 
-@ModelOptions({
-  schemaOptions: { collection: 'refresh_tokens', versionKey: false },
-})
+@ModelOptions({ schemaOptions: { collection: 'refresh_tokens', versionKey: false } })
 @Index({ signatureId: 1 })
 @Index({ deleteAt: 1 }, { expireAfterSeconds: 0 })
 export default class RefreshToken {

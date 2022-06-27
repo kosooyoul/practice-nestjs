@@ -1,10 +1,7 @@
 import { Index, ModelOptions, Prop, Severity } from '@typegoose/typegoose';
 import { ObjectId } from '@/common/types';
 
-@ModelOptions({
-  schemaOptions: { collection: 'accounts', versionKey: false },
-  options: { allowMixed: Severity.ALLOW },
-})
+@ModelOptions({ schemaOptions: { collection: 'accounts', versionKey: false } })
 @Index({ email: 1 }, { unique: true })
 export default class Account {
   _id!: ObjectId;
