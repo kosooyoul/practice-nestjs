@@ -1,20 +1,20 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { SignatureAuthGuard } from '@/accessory/auth/signature-auth.guard';
+import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
 import { ApolloError } from 'apollo-server-core';
 import { AccountSignService } from '@/modules/application/account-sign/account-sign.service';
 import SignUpRequest from '../dto/account-sign/request/SignUpRequest';
 import SignInRequest from '../dto/account-sign/request/SignInRequest';
-import { Signature } from '@/accessory/auth/signature.decorators';
-import { Authorization } from '@/accessory/auth/authorization.decorators';
-import { ISignature } from '@/accessory/auth/auth.interface';
+import { Signature } from '@/global/auth/signature.decorators';
+import { Authorization } from '@/global/auth/authorization.decorators';
+import { ISignature } from '@/global/auth/auth.interface';
 import RefreshSignRequest from '../dto/account-sign/request/RefreshSignRequest';
 import SignInResponse from '../dto/account-sign/response/SignInResponse';
 import { AccountService } from '@/modules/application/account/account.service';
 import SignUpResponse from '../dto/account-sign/response/SignUpResponse';
 import SignOutResponse from '../dto/account-sign/response/SignOutResponse';
 import RefreshSignResponse from '../dto/account-sign/response/RefreshSignResponse';
-import { Nullable } from '@/common/types';
+import { Nullable } from '@/global/common/types';
 
 const TAG = 'AccountSignResolver';
 

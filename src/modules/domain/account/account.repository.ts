@@ -1,5 +1,5 @@
 import Account from '@/modules/domain/account/account.entity';
-import { Nullable } from '@/common/types';
+import { Nullable } from '@/global/common/types';
 import { AccountFilter } from '@/modules/application/account/account-filter.class';
 import { AccountFields } from '@/modules/application/account/account-fields.class';
 

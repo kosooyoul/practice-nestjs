@@ -1,6 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 
-class ClassTransformer {
+class GlobalInputTransformerPrototype {
   Trim(): PropertyDecorator {
     return Transform(({ value }) => value && value.trim());
   }
@@ -29,6 +29,4 @@ class ClassTransformer {
   }
 }
 
-const InputTransformer = new ClassTransformer();
-
-export default InputTransformer;
+export const GlobalInputTransformer = new GlobalInputTransformerPrototype();

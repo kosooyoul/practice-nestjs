@@ -1,0 +1,31 @@
+const MILLS_5_YEARS = 5 * 365 * 24 * 60 * 60 * 1000;
+const MILLS_3_YEARS = 3 * 365 * 24 * 60 * 60 * 1000;
+const MILLS_1_YEAR = 1 * 365 * 24 * 60 * 60 * 1000;
+const MILLS_180_DAYS = 180 * 24 * 60 * 60 * 1000;
+const MILLS_90_DAYS = 90 * 24 * 60 * 60 * 1000;
+const MILLS_30_DAYS = 30 * 24 * 60 * 60 * 1000;
+const MILLS_7_DAYS = 7 * 24 * 60 * 60 * 1000;
+const MILLS_3_DAYS = 3 * 24 * 60 * 60 * 1000;
+const MILLS_1_DAY = 1 * 24 * 60 * 60 * 1000;
+const MILLS_1_HOUR = 1 * 60 * 60 * 1000;
+const MILLS_30_MINUTES = 30 * 60 * 1000;
+const MILLS_5_MINUTES = 5 * 60 * 1000;
+const MILLS_1_MINUTE = 60 * 1000;
+const SECONDS_180_DAYS = 180 * 24 * 60 * 60;
+
+export const Time = {
+  MILLS_5_YEARS,
+  MILLS_3_YEARS,
+  MILLS_1_YEAR,
+  MILLS_180_DAYS,
+  MILLS_90_DAYS,
+  MILLS_30_DAYS,
+  MILLS_7_DAYS,
+  MILLS_3_DAYS,
+  MILLS_1_DAY,
+  MILLS_1_HOUR,
+  MILLS_30_MINUTES,
+  MILLS_5_MINUTES,
+  MILLS_1_MINUTE,
+  SECONDS_180_DAYS,
+};

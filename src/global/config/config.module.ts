@@ -12,4 +12,6 @@ const env = process.env.NODE_ENV?.toLowerCase() || 'local';
     }),
   ],
 })
-export class AppConfigModule {}
+export class GlobalConfigModule {
+  // Do nothing
+}

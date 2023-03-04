@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import Account from '@/modules/domain/account/account.entity';
 import { ReturnModelType } from '@typegoose/typegoose';
-import { Nullable } from '@/common/types';
+import { Nullable } from '@/global/common/types';
 import { AccountFilter } from '@/modules/application/account/account-filter.class';
 import { AccountFields } from '@/modules/application/account/account-fields.class';
 import { IAccountRepository } from '@/modules/domain/account/account.repository';

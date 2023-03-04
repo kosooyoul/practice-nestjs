@@ -1,6 +1,6 @@
-import { Signature } from '@/accessory/auth/signature.decorators';
-import { ISignature } from '@/accessory/auth/auth.interface';
-import { SignatureAuthGuard } from '@/accessory/auth/signature-auth.guard';
+import { Signature } from '@/global/auth/signature.decorators';
+import { ISignature } from '@/global/auth/auth.interface';
+import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
 import { AccountService } from '@/modules/application/account/account.service';
 import { Injectable, UseGuards } from '@nestjs/common';
 import { Query, Resolver } from '@nestjs/graphql';

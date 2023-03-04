@@ -1,6 +1,6 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { catchError, map } from 'rxjs';
-import { ApiResponse } from '@/common/types';
+import { ApiResponse } from '@/global/common/types';
 
 export class ApiResponseInterceptor implements NestInterceptor {
   async intercept(_context: ExecutionContext, next: CallHandler) {

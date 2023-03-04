@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-import { ApiField } from '@/accessory/rest-api/api.decorator';
+import { ApiField } from '@/global/interface/rest-api/decorator';
 import { SignInResult } from '@/modules/application/account-sign/sign-in-result.class';
 
 @ObjectType()

@@ -1,14 +1,14 @@
 import { InputType } from '@nestjs/graphql';
-import InputValidator from '@/accessory/input-validator/input-validator.decorator';
-import InputTransformer from '@/accessory/input-transformer/input-transformer.decorator';
+import { GlobalInputValidator } from '@/global/common/decorators/input-validator.decorator';
+import { GlobalInputTransformer } from '@/global/common/decorators/input-transformer.decorator';
 import { AccountFields } from '@/modules/application/account/account-fields.class';
-import { ApiField } from '@/accessory/rest-api/api.decorator';
+import { ApiField } from '@/global/interface/rest-api/decorator';
 import * as bcrypt from 'bcrypt';
 
 @InputType()
 export default class SignUpRequest {
-  @InputTransformer.NormalizeEmail()
-  @InputValidator.IsEmail()
+  @GlobalInputTransformer.NormalizeEmail()
+  @GlobalInputValidator.IsEmail()
   @ApiField(() => String, {
     description: '로그인 이메일',
     nullable: false,
@@ -16,7 +16,7 @@ export default class SignUpRequest {
   })
   email!: string;
 
-  @InputValidator.IsPassword()
+  @GlobalInputValidator.IsPassword()
   @ApiField(() => String, {
     description: '로그인 비밀번호',
     nullable: false,
@@ -24,8 +24,8 @@ export default class SignUpRequest {
   })
   password!: string;
 
-  @InputTransformer.Trim()
-  @InputValidator.IsUserName()
+  @GlobalInputTransformer.Trim()
+  @GlobalInputValidator.IsUserName()
   @ApiField(() => String, {
     description: '계정 사용자 이름',
     nullable: false,

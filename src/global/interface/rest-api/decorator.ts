@@ -1,5 +1,5 @@
 import { Get, Post, UseInterceptors } from '@nestjs/common';
-import { ApiResponseInterceptor as ApiResponseInterceptor } from './api-response.interceptor';
+import { ApiResponseInterceptor as ApiResponseInterceptor } from './response.interceptor';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -7,7 +7,7 @@ import {
   ApiCreatedResponse,
 } from '@nestjs/swagger';
 import { Field } from '@nestjs/graphql';
-import { Optional } from '@/common/types';
+import { Optional } from '@/global/common/types';
 
 interface IApiOptions {
   path: string | string[];

@@ -1,7 +1,7 @@
 import { ID, ObjectType } from '@nestjs/graphql';
-import { ObjectId } from '@/common/types';
+import { ObjectId } from '@/global/common/types';
 import Account from '@/modules/domain/account/account.entity';
-import { ApiField } from '@/accessory/rest-api/api.decorator';
+import { ApiField } from '@/global/interface/rest-api/decorator';
 
 @ObjectType()
 export default class MeResponse {

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ISignature } from './auth.interface';
 import { JwtService } from '@nestjs/jwt';
-import { ObjectId, Optional } from '@/common/types';
+import { ObjectId, Optional } from '@/global/common/types';
 
 @Injectable()
 export class AuthService {

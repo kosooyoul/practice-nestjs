@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ObjectId, Nullable, Optional } from '@/common/types';
+import { ObjectId, Nullable, Optional } from '@/global/common/types';
 import Account from '@/modules/domain/account/account.entity';
 import { IAccountRepository } from '@/modules/domain/account/account.repository';
 import { AccountFilter } from './account-filter.class';

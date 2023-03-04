@@ -1,4 +1,4 @@
-import { ObjectId } from '@/common/types';
+import { ObjectId } from '@/global/common/types';
 
 export class AccountFilter {
   _id?: ObjectId;

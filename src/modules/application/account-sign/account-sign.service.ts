@@ -1,19 +1,13 @@
-import {
-  MILLS_1_DAY,
-  MILLS_1_MINUTE,
-  MILLS_7_DAYS,
-  MILLS_1_YEAR,
-  MILLS_90_DAYS,
-} from '@/common/time';
+import { Time } from '@/global/common/constants/time';
 import Account from '@/modules/domain/account/account.entity';
-import { TokenType } from '@/common/enums';
+import { TokenType } from '@/global/common/enums';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApolloError } from 'apollo-server-core';
-import { ISignature } from '@/accessory/auth/auth.interface';
+import { ISignature } from '@/global/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/modules/domain/refresh-token/refresh-token.repository';
 import { SignInResult } from './sign-in-result.class';
-import { Nullable, ObjectId } from '@/common/types';
+import { Nullable, ObjectId } from '@/global/common/types';
 import * as jwt from 'jsonwebtoken';
 
 const TAG = 'AccountSignService';
@@ -42,7 +36,7 @@ export class AccountSignService {
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: account._id,
       refreshToken: refreshToken,
-      deleteAt: new Date(Date.now() + MILLS_90_DAYS),
+      deleteAt: new Date(Date.now() + Time.MILLS_90_DAYS),
     });
 
     return {
@@ -70,7 +64,7 @@ export class AccountSignService {
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: signature.id,
       refreshToken: refreshToken,
-      deleteAt: new Date(Date.now() + MILLS_90_DAYS),
+      deleteAt: new Date(Date.now() + Time.MILLS_90_DAYS),
     });
 
     return {
@@ -130,13 +124,13 @@ export class AccountSignService {
     if (tokenType == TokenType.ACCESS) {
       return process.env.TESTABLE
         ? keep
-          ? MILLS_1_DAY
-          : MILLS_1_MINUTE
+          ? Time.MILLS_1_DAY
+          : Time.MILLS_1_MINUTE
         : keep
-        ? MILLS_7_DAYS
-        : MILLS_1_DAY;
+        ? Time.MILLS_7_DAYS
+        : Time.MILLS_1_DAY;
     } else {
-      return keep ? MILLS_1_YEAR : MILLS_1_YEAR;
+      return keep ? Time.MILLS_1_YEAR : Time.MILLS_1_YEAR;
     }
   }
 

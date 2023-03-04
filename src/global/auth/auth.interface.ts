@@ -1,5 +1,5 @@
-import { ObjectId } from '@/common/types';
-import { TokenType } from '@/common/enums';
+import { ObjectId } from '@/global/common/types';
+import { TokenType } from '@/global/common/enums';
 
 export interface ISignature {
   id: ObjectId;
