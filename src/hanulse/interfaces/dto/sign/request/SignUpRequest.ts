@@ -9,7 +9,8 @@ import * as bcrypt from 'bcrypt';
 export default class SignUpRequest {
   @GlobalInputTransformer.NormalizeEmail()
   @GlobalInputValidator.IsEmail()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '로그인 이메일',
     nullable: false,
     example: 'test@test.com',
@@ -17,7 +18,8 @@ export default class SignUpRequest {
   email!: string;
 
   @GlobalInputValidator.IsPassword()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '로그인 비밀번호',
     nullable: false,
     example: 'a123456!',
@@ -26,7 +28,8 @@ export default class SignUpRequest {
 
   @GlobalInputTransformer.Trim()
   @GlobalInputValidator.IsUserName()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '계정 사용자 이름',
     nullable: false,
     example: '테스트',

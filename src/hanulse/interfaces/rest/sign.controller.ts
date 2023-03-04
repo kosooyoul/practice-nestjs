@@ -2,17 +2,17 @@ import { Body, Controller, UseGuards } from '@nestjs/common';
 import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
 import { ApolloError } from 'apollo-server-core';
 import { AccountSignService } from '@/hanulse/application/service/account-sign.service';
-import SignUpRequest from '../dto/account-sign/request/SignUpRequest';
-import SignInRequest from '../dto/account-sign/request/SignInRequest';
+import SignUpRequest from '../dto/sign/request/SignUpRequest';
+import SignInRequest from '../dto/sign/request/SignInRequest';
 import { Signature } from '@/global/auth/signature.decorators';
 import { Authorization } from '@/global/auth/authorization.decorators';
 import { ISignature } from '@/global/auth/auth.interface';
-import RefreshSignRequest from '../dto/account-sign/request/RefreshSignRequest';
-import SignInResponse from '../dto/account-sign/response/SignInResponse';
+import RefreshSignRequest from '../dto/sign/request/RefreshSignRequest';
+import SignInResponse from '../dto/sign/response/SignInResponse';
 import { AccountService } from '@/hanulse/application/service/account.service';
-import SignUpResponse from '../dto/account-sign/response/SignUpResponse';
-import SignOutResponse from '../dto/account-sign/response/SignOutResponse';
-import RefreshSignResponse from '../dto/account-sign/response/RefreshSignResponse';
+import SignUpResponse from '../dto/sign/response/SignUpResponse';
+import SignOutResponse from '../dto/sign/response/SignOutResponse';
+import RefreshSignResponse from '../dto/sign/response/RefreshSignResponse';
 import { Nullable } from '@/global/common/types';
 import { PostApi } from '@/global/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
@@ -20,7 +20,7 @@ import { ApiTags } from '@nestjs/swagger';
 const TAG = 'SignResolver';
 
 @ApiTags('Sign')
-@Controller('/v1')
+@Controller('/v0/sign')
 export class SignController {
   constructor(
     private readonly accountService: AccountService,
@@ -28,7 +28,7 @@ export class SignController {
   ) {}
 
   @PostApi(() => SignUpResponse, {
-    path: '/account/sign-up',
+    path: '/up',
     description: '회원 가입',
   })
   async signUp(@Body() request: SignUpRequest): Promise<SignUpResponse> {
@@ -48,7 +48,7 @@ export class SignController {
   }
 
   @PostApi(() => SignInResponse, {
-    path: '/account/sign-in',
+    path: '/in',
     description: '로그인',
   })
   async signIn(@Body() request: SignInRequest): Promise<SignInResponse> {
@@ -66,7 +66,7 @@ export class SignController {
 
   @UseGuards(SignatureAuthGuard)
   @PostApi(() => SignOutResponse, {
-    path: '/account/sign-out',
+    path: '/out',
     description: '로그아웃',
     auth: true,
   })
@@ -77,7 +77,7 @@ export class SignController {
   }
 
   @PostApi(() => RefreshSignResponse, {
-    path: '/account/refresh-sign',
+    path: '/refresh',
     description: '인증 리프레시',
     auth: true,
   })

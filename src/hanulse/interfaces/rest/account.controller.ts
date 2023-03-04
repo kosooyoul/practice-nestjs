@@ -11,13 +11,13 @@ import { ApiTags } from '@nestjs/swagger';
 const TAG = 'AccountController';
 
 @ApiTags('Account')
-@Controller('/v1')
+@Controller('/v0/account')
 export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @UseGuards(SignatureAuthGuard)
   @GetApi(() => MeResponse, {
-    path: '/account/me',
+    path: '/me',
     description: '내 계정 정보 조회',
     auth: true,
   })

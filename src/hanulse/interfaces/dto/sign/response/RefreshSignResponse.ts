@@ -1,21 +1,24 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { ObjectType } from '@nestjs/graphql';
 import { ISignInResult } from '@/hanulse/application/dto/sign/sign-in-result';
+import { ApiField } from '@/global/interface/rest/decorator';
 
 @ObjectType()
 export default class RefreshSignResponse {
-  @Field(() => String, {
+  @ApiField({
+    type: String,
     description: '사용자 계정 인증 토큰',
     nullable: false,
   })
   accessToken!: string;
 
-  @Field(() => String, {
+  @ApiField({
+    type: String,
     description: '사용자 계정 인증 리프레시 토큰',
     nullable: false,
   })
   refreshToken!: string;
 
-  @Field(() => Date, { description: '만료 날짜 시간', nullable: false })
+  @ApiField({ type: Date, description: '만료 날짜 시간', nullable: false })
   expiresIn!: Date;
 
   static fromSignInResult(signInResult: ISignInResult): RefreshSignResponse {

@@ -7,7 +7,8 @@ import { ApiField } from '@/global/interface/rest/decorator';
 export default class RefreshSignRequest {
   @GlobalInputTransformer.Trim()
   @GlobalInputValidator.IsNotEmptyString()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '인증 리프레시 토큰',
     nullable: false,
     example: 'qwertyuiopasdfghjklzxcvbnm',

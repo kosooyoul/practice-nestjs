@@ -8,7 +8,8 @@ import { ApiField } from '@/global/interface/rest/decorator';
 export default class SignInRequest {
   @GlobalInputTransformer.NormalizeEmail()
   @GlobalInputValidator.IsEmail()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '로그인 이메일',
     nullable: false,
     example: 'test@test.com',
@@ -16,14 +17,16 @@ export default class SignInRequest {
   email!: string;
 
   @GlobalInputValidator.IsNotEmptyString()
-  @ApiField(() => String, {
+  @ApiField({
+    type: String,
     description: '로그인 비밀번호',
     nullable: false,
     example: 'a123456!',
   })
   password!: string;
 
-  @ApiField(() => Boolean, {
+  @ApiField({
+    type: Boolean,
     description: '로그인을 유지할지 여부',
     nullable: true,
     defaultValue: false,

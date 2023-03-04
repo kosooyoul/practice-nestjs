@@ -16,10 +16,11 @@ interface IApiOptions {
 }
 
 interface IApiPropertyOptions {
+  type: any;
   description?: string;
   nullable?: boolean;
   defaultValue?: any;
-  example?: string;
+  example?: any;
 }
 
 function combinePropertyDecorator(
@@ -96,20 +97,42 @@ export const PostApi = function (
   }
 };
 
+export const getReturnTypeFunc = (returnType: any) => () => returnType;
+
 export const ApiField = function (
-  returnTypeFunc?: (returns?: void) => any,
-  options?: IApiPropertyOptions,
+  options: IApiPropertyOptions,
 ): PropertyDecorator {
   return combinePropertyDecorator(
     ApiProperty({
-      description: options?.description,
-      required: options ? !options.nullable : undefined,
+      // type: options.type,
+      description: options.description,
+      required: !options.nullable,
       example: options.example,
     }),
-    Field(returnTypeFunc, {
-      description: options?.description,
-      nullable: options?.nullable,
-      defaultValue: options?.defaultValue,
+    Field(options.type && getReturnTypeFunc(options.type), {
+      description: options.description,
+      nullable: options.nullable,
+      defaultValue: options.defaultValue,
     }),
   );
+};
+
+export const RestApiField = function (
+  options: IApiPropertyOptions,
+): PropertyDecorator {
+  return ApiProperty({
+    description: options.description,
+    required: !options.nullable,
+    example: options.example,
+  });
+};
+
+export const GraphQLField = function (
+  options: IApiPropertyOptions,
+): PropertyDecorator {
+  return Field(options.type && getReturnTypeFunc(options.type), {
+    description: options.description,
+    nullable: options.nullable,
+    defaultValue: options.defaultValue,
+  });
 };
