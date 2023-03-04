@@ -5,20 +5,17 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { GraphQLError, GraphQLFormattedError } from 'graphql';
 import { GlobalErrorCodes } from '../../common/error-codes';
 
-export const DefaultGraphQLModule = (
-  path: string,
-  includeModule?: any,
-): DynamicModule => {
+export const DefaultGraphQLModule = (name: string, path: string, includeModule?: any): DynamicModule => {
   return GraphQLModule.forRootAsync<ApolloDriverConfig>({
     driver: ApolloDriver,
-    imports: [],
+    imports: includeModule ? [includeModule] : [],
     useFactory: () => ({
       uploads: false,
       cors: true,
       validate: true,
       playground: GlobalConfig.PLAYGROUND_ENABLED,
-      autoSchemaFile: true,
-      // typePaths: ['**/graphql.graphql'],
+      autoSchemaFile: false,
+      typePaths: [`./sdl/${name}-schema.gql`],
       debug: true,
       // introspection: false,
       formatError: (error: GraphQLError): GraphQLFormattedError => {

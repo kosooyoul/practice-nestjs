@@ -5,16 +5,15 @@ import { DefaultGraphQLModule } from '@/global/interface/graphql/graphql.module'
 import { AccountResolver } from './graphql/account.resolver';
 import { SignResolver } from './graphql/sign.resolver';
 
+export const HanulseGraphQLResolvers = [AccountResolver, SignResolver];
+
 @Module({
   imports: [HanulseMongoDatabaseModule, HanulseServiceModule],
-  providers: [AccountResolver, SignResolver],
+  providers: HanulseGraphQLResolvers,
 })
 export class HanulseGraphQLSchemaModule {}
 
 @Module({
-  imports: [
-    HanulseGraphQLSchemaModule,
-    DefaultGraphQLModule('/v0/graphql', HanulseGraphQLSchemaModule),
-  ],
+  imports: [DefaultGraphQLModule('hanulse', '/v0/user/graphql', HanulseGraphQLSchemaModule)],
 })
 export class HanulseGraphQLModule {}

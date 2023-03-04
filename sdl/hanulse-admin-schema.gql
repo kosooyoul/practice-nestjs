@@ -1,0 +1,12 @@
+type TestResponse {
+  """제목"""
+  title: String!
+
+  """설명"""
+  description: String!
+}
+
+type Query {
+  """테스트"""
+  test: TestResponse!
+}
