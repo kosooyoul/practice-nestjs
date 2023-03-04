@@ -1,36 +1,20 @@
-import { SignResolver } from './graphql/sign.resolver';
 import { HanulseServiceModule } from '@/hanulse/application/service.module';
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AccountResolver } from './graphql/account.resolver';
-import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
-import { GraphQLModule } from '@nestjs/graphql';
+import { Module } from '@nestjs/common';
 import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.module';
+import { DefaultGraphQLModule } from '@/global/interface/graphql/graphql.module';
+import { AccountResolver } from './graphql/account.resolver';
+import { SignResolver } from './graphql/sign.resolver';
+
+@Module({
+  imports: [HanulseMongoDatabaseModule, HanulseServiceModule],
+  providers: [AccountResolver, SignResolver],
+})
+export class HanulseGraphQLSchemaModule {}
 
 @Module({
   imports: [
-    HanulseMongoDatabaseModule,
-    HanulseServiceModule,
-    GraphQLModule.forRootAsync<ApolloDriverConfig>({
-      driver: ApolloDriver,
-      imports: [],
-      useFactory: () => ({
-        uploads: false,
-        cors: true,
-        validate: true,
-        playground: true,
-        autoSchemaFile: true,
-        debug: true,
-        disableHealthCheck: true,
-        path: '/v0/graphql',
-        context: ({ req, res }) => ({ req, res }),
-      }),
-    }),
+    HanulseGraphQLSchemaModule,
+    DefaultGraphQLModule('/v0/graphql', HanulseGraphQLSchemaModule),
   ],
-  providers: [AccountResolver, SignResolver],
 })
-export class HanulseGraphQLModule implements NestModule {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  configure(consumer: MiddlewareConsumer) {
-    // Note: Add middleware
-  }
-}
+export class HanulseGraphQLModule {}
