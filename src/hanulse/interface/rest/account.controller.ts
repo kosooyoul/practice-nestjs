@@ -4,7 +4,7 @@ import { Signature } from '@/global/auth/signature.decorators';
 import { ISignature } from '@/global/auth/auth.interface';
 import { ApolloError } from 'apollo-server-core';
 import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
-import MeResponse from '@/hanulse/interfaces/dto/account/response/MeResponse';
+import MeResponse from '@/hanulse/interface/dto/account/response/MeResponse';
 import { GetApi } from '@/global/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
 

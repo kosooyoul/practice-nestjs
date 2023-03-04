@@ -22,25 +22,17 @@ const TAG = 'SignResolver';
 @ApiTags('Sign')
 @Controller('/v0/sign')
 export class SignController {
-  constructor(
-    private readonly accountService: AccountService,
-    private readonly accountSignService: AccountSignService,
-  ) {}
+  constructor(private readonly accountService: AccountService, private readonly accountSignService: AccountSignService) {}
 
   @PostApi(() => SignUpResponse, {
     path: '/up',
     description: '회원 가입',
   })
   async signUp(@Body() request: SignUpRequest): Promise<SignUpResponse> {
-    const emailExisting = await this.accountService.IsExistingAccountEmail(
-      request.email,
-    );
-    if (emailExisting)
-      throw new ApolloError('ACCOUNT_EMAIL_ALREADY_HAS_BEEN_USED', TAG);
+    const emailExisting = await this.accountService.IsExistingAccountEmail(request.email);
+    if (emailExisting) throw new ApolloError('ACCOUNT_EMAIL_ALREADY_HAS_BEEN_USED', TAG);
 
-    const account = await this.accountService.createAccount(
-      request.toAccountFields(),
-    );
+    const account = await this.accountService.createAccount(request.toAccountFields());
 
     const result = await this.accountSignService.signIn(account, false);
 
@@ -52,12 +44,8 @@ export class SignController {
     description: '로그인',
   })
   async signIn(@Body() request: SignInRequest): Promise<SignInResponse> {
-    const account = await this.accountService.getAccountByFilterWithPassword(
-      request.toAccountFilter(),
-      request.password,
-    );
-    if (account == null)
-      throw new ApolloError('ACCOUNT_PASSWORD_DOES_NOT_MATCH', TAG);
+    const account = await this.accountService.getAccountByFilterWithPassword(request.toAccountFilter(), request.password);
+    if (account == null) throw new ApolloError('ACCOUNT_PASSWORD_DOES_NOT_MATCH', TAG);
 
     const result = await this.accountSignService.signIn(account, request.keep);
 
@@ -81,17 +69,10 @@ export class SignController {
     description: '인증 리프레시',
     auth: true,
   })
-  async refreshSign(
-    @Authorization() accessToken: Nullable<string>,
-    @Body() request: RefreshSignRequest,
-  ): Promise<RefreshSignResponse> {
-    if (accessToken == null)
-      throw new ApolloError('AUTH_TOKEN_IS_NOT_EXISTS', TAG);
+  async refreshSign(@Authorization() accessToken: Nullable<string>, @Body() request: RefreshSignRequest): Promise<RefreshSignResponse> {
+    if (accessToken == null) throw new ApolloError('AUTH_TOKEN_IS_NOT_EXISTS', TAG);
 
-    const result = await this.accountSignService.refreshSign(
-      accessToken,
-      request.refreshToken,
-    );
+    const result = await this.accountSignService.refreshSign(accessToken, request.refreshToken);
 
     return RefreshSignResponse.fromSignInResult(result);
   }

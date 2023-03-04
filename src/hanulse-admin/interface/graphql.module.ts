@@ -10,6 +10,12 @@ export const HanulseAdminGraphQLResolvers = [TestResolver];
 export class HanulseAdminGraphQLSchemaModule {}
 
 @Module({
-  imports: [DefaultGraphQLModule('hanulse-admin', '/v0/admin/graphql', HanulseAdminGraphQLSchemaModule)],
+  imports: [
+    DefaultGraphQLModule({
+      path: '/v0/admin/graphql',
+      module: HanulseAdminGraphQLSchemaModule,
+      resolvers: HanulseAdminGraphQLResolvers,
+    }),
+  ],
 })
 export class HanulseAdminGraphQLModule {}

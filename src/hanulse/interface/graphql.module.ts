@@ -14,6 +14,12 @@ export const HanulseGraphQLResolvers = [AccountResolver, SignResolver];
 export class HanulseGraphQLSchemaModule {}
 
 @Module({
-  imports: [DefaultGraphQLModule('hanulse', '/v0/user/graphql', HanulseGraphQLSchemaModule)],
+  imports: [
+    DefaultGraphQLModule({
+      path: '/v0/graphql',
+      module: HanulseGraphQLSchemaModule,
+      resolvers: HanulseGraphQLResolvers,
+    }),
+  ],
 })
 export class HanulseGraphQLModule {}

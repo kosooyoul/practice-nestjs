@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { HanulseAdminGraphQLModule } from './interfaces/graphql.module';
+import { HanulseAdminGraphQLModule } from './interface/graphql.module';
 
 @Module({
   imports: [HanulseAdminGraphQLModule],

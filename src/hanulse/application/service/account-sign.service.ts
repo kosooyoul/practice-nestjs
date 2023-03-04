@@ -29,9 +29,7 @@ export class AccountSignService {
 
     const accessToken = this.generateToken(signature, TokenType.ACCESS, keep);
     const refreshToken = this.generateToken(signature, TokenType.REFRESH, keep);
-    const expiresIn = new Date(
-      Date.now() + this.getExpiresIn(TokenType.ACCESS, keep),
-    );
+    const expiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, keep));
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: account._id,
@@ -47,19 +45,9 @@ export class AccountSignService {
   }
 
   async signInBySignature(signature: ISignature): Promise<ISignInResult> {
-    const accessToken = this.generateToken(
-      signature,
-      TokenType.ACCESS,
-      signature.keep,
-    );
-    const refreshToken = this.generateToken(
-      signature,
-      TokenType.REFRESH,
-      signature.keep,
-    );
-    const expiresIn = new Date(
-      Date.now() + this.getExpiresIn(TokenType.ACCESS, signature.keep),
-    );
+    const accessToken = this.generateToken(signature, TokenType.ACCESS, signature.keep);
+    const refreshToken = this.generateToken(signature, TokenType.REFRESH, signature.keep);
+    const expiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, signature.keep));
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: signature.id,
@@ -82,21 +70,15 @@ export class AccountSignService {
     return true;
   }
 
-  async refreshSign(
-    accessToken: string,
-    refreshToken: string,
-  ): Promise<ISignInResult> {
+  async refreshSign(accessToken: string, refreshToken: string): Promise<ISignInResult> {
     const signature = this.decodeToken(accessToken);
-    if (signature == null)
-      throw new ApolloError('AUTH_TOKEN_IS_NOT_VALID', TAG);
+    if (signature == null) throw new ApolloError('AUTH_TOKEN_IS_NOT_VALID', TAG);
 
-    const deletedRefreshToken =
-      await this.refreshTokenRepository.deleteRefreshToken({
-        signatureId: signature.id,
-        refreshToken: refreshToken,
-      });
-    if (!deletedRefreshToken)
-      throw new ApolloError('REFRESH_TOKEN_DOES_NOT_EXIST', TAG);
+    const deletedRefreshToken = await this.refreshTokenRepository.deleteRefreshToken({
+      signatureId: signature.id,
+      refreshToken: refreshToken,
+    });
+    if (!deletedRefreshToken) throw new ApolloError('REFRESH_TOKEN_DOES_NOT_EXIST', TAG);
 
     return await this.signInBySignature(signature);
   }
@@ -111,10 +93,7 @@ export class AccountSignService {
       },
       {
         expiresIn: this.getExpiresIn(tokenType, keep),
-        secret:
-          tokenType === TokenType.ACCESS
-            ? process.env.ACCESS_TOKEN_JWT_SECRET
-            : process.env.REFRESH_TOKEN_JWT_SECRET,
+        secret: tokenType === TokenType.ACCESS ? process.env.ACCESS_TOKEN_JWT_SECRET : process.env.REFRESH_TOKEN_JWT_SECRET,
       },
     );
     return token;
@@ -122,13 +101,7 @@ export class AccountSignService {
 
   private getExpiresIn(tokenType: TokenType, keep: boolean) {
     if (tokenType == TokenType.ACCESS) {
-      return process.env.TESTABLE
-        ? keep
-          ? Time.MILLS_1_DAY
-          : Time.MILLS_1_MINUTE
-        : keep
-        ? Time.MILLS_7_DAYS
-        : Time.MILLS_1_DAY;
+      return process.env.TESTABLE ? (keep ? Time.MILLS_1_DAY : Time.MILLS_1_MINUTE) : keep ? Time.MILLS_7_DAYS : Time.MILLS_1_DAY;
     } else {
       return keep ? Time.MILLS_1_YEAR : Time.MILLS_1_YEAR;
     }

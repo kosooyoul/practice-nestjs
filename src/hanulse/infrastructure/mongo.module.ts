@@ -3,10 +3,7 @@ import { TypegooseModule } from 'nestjs-typegoose';
 import { Account } from '@/hanulse/domain/account.entity';
 import { RefreshToken } from '@/hanulse/domain/refresh-token.entity';
 
-const models = TypegooseModule.forFeature(
-  [Account, RefreshToken],
-  'HanulseDatabase',
-);
+const models = TypegooseModule.forFeature([Account, RefreshToken], 'HanulseDatabase');
 
 @Module({
   imports: [

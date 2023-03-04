@@ -23,9 +23,7 @@ export class AccountService {
     return await this.accountRepository.get({ email: email });
   }
 
-  async getAccountByFilter(
-    accountFilter: IAccountFilter,
-  ): Promise<Nullable<Account>> {
+  async getAccountByFilter(accountFilter: IAccountFilter): Promise<Nullable<Account>> {
     return await this.accountRepository.get(accountFilter);
   }
 
@@ -33,20 +31,11 @@ export class AccountService {
     return await this.accountRepository.exists({ email: email });
   }
 
-  async getAccountByIdWithPassword(
-    accountId: ObjectId,
-    password: string,
-  ): Promise<Optional<Account>> {
-    return await this.getAccountByFilterWithPassword(
-      { _id: accountId },
-      password,
-    );
+  async getAccountByIdWithPassword(accountId: ObjectId, password: string): Promise<Optional<Account>> {
+    return await this.getAccountByFilterWithPassword({ _id: accountId }, password);
   }
 
-  async getAccountByFilterWithPassword(
-    accountFilter: IAccountFilter,
-    password: string,
-  ): Promise<Optional<Account>> {
+  async getAccountByFilterWithPassword(accountFilter: IAccountFilter, password: string): Promise<Optional<Account>> {
     const account = await this.accountRepository.get(accountFilter);
     if (account == null) return null;
 
