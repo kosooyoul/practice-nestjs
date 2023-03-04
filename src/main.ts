@@ -19,9 +19,9 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Practice NestJS')
-    .setDescription('Practice NestJS')
-    .setVersion('1.0')
+    .setTitle(process.env.TITLE)
+    .setDescription(process.env.DESCRIPTION)
+    .setVersion('0.0.1')
     .addBearerAuth(
       { type: 'http', scheme: 'bearer', name: 'JWT', in: 'header' },
       'access-token',
@@ -29,8 +29,9 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('/v0/docs', app, document);
 
   await app.listen(process.env.SERVER_PORT);
 }
+
 bootstrap();
