@@ -1,10 +1,4 @@
-import {
-  Validate,
-  IsMongoId,
-  IsEmail,
-  ValidateNested,
-  Length,
-} from 'class-validator';
+import { Validate, IsMongoId, IsEmail, ValidateNested, Length } from 'class-validator';
 import { PasswordValidator } from './validators/password.validator';
 
 class GlobalInputValidatorPrototype {

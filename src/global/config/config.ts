@@ -6,7 +6,7 @@ export class ConfigPrototype {
 
   protected getStringArray(name: string, defaultValue = []): string[] {
     const value = process.env[name];
-    return value ? value.split(',').map((v) => v.trim()) : defaultValue;
+    return value ? value.split(',').map(v => v.trim()) : defaultValue;
   }
 
   protected getNumber(name: string, defaultValue: number): number {
@@ -16,10 +16,7 @@ export class ConfigPrototype {
 
   protected getBoolean(name: string): boolean {
     const value = process.env[name];
-    return (
-      !!value &&
-      ['true', 'yes', 't', 'y', '1', 'on'].includes(value.toLowerCase())
-    );
+    return !!value && ['true', 'yes', 't', 'y', '1', 'on'].includes(value.toLowerCase());
   }
 }
 

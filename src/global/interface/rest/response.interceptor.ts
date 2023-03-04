@@ -5,8 +5,8 @@ import { ApiResponse } from '@/global/common/types';
 export class ApiResponseInterceptor implements NestInterceptor {
   async intercept(_context: ExecutionContext, next: CallHandler) {
     return next.handle().pipe(
-      map(async (data) => ApiResponse(data)),
-      catchError(async (err) => ApiResponse(err)),
+      map(async data => ApiResponse(data)),
+      catchError(async err => ApiResponse(err)),
     );
   }
 }

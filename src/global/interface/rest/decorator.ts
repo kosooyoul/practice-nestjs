@@ -1,11 +1,6 @@
 import { Get, Post, UseInterceptors } from '@nestjs/common';
 import { ApiResponseInterceptor as ApiResponseInterceptor } from './response.interceptor';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiProperty,
-  ApiCreatedResponse,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiProperty, ApiCreatedResponse } from '@nestjs/swagger';
 import { Field } from '@nestjs/graphql';
 import { Optional } from '@/global/common/types';
 
@@ -23,28 +18,21 @@ interface IApiPropertyOptions {
   example?: any;
 }
 
-function combinePropertyDecorator(
-  ...decorators: PropertyDecorator[]
-): PropertyDecorator {
+function combinePropertyDecorator(...decorators: PropertyDecorator[]): PropertyDecorator {
   return function (target: any, key: string) {
     let decorator: Optional<PropertyDecorator>;
     while ((decorator = decorators.shift())) decorator(target, key);
   } as PropertyDecorator;
 }
 
-function combineMethodDecorator(
-  ...decorators: MethodDecorator[]
-): MethodDecorator {
+function combineMethodDecorator(...decorators: MethodDecorator[]): MethodDecorator {
   return function (target: any, key: string, descriptor: any) {
     let decorator: Optional<MethodDecorator>;
     while ((decorator = decorators.shift())) decorator(target, key, descriptor);
   } as MethodDecorator;
 }
 
-export const GetApi = function (
-  returnTypeFunc?: (returns?: void) => any,
-  options?: IApiOptions,
-): MethodDecorator {
+export const GetApi = function (returnTypeFunc?: (returns?: void) => any, options?: IApiOptions): MethodDecorator {
   if (options.auth) {
     return combineMethodDecorator(
       ApiBearerAuth('access-token'),
@@ -69,10 +57,7 @@ export const GetApi = function (
   }
 };
 
-export const PostApi = function (
-  returnTypeFunc?: (returns?: void) => any,
-  options?: IApiOptions,
-): MethodDecorator {
+export const PostApi = function (returnTypeFunc?: (returns?: void) => any, options?: IApiOptions): MethodDecorator {
   if (options.auth) {
     return combineMethodDecorator(
       ApiBearerAuth('access-token'),
@@ -99,9 +84,7 @@ export const PostApi = function (
 
 export const getReturnTypeFunc = (returnType: any) => () => returnType;
 
-export const ApiField = function (
-  options: IApiPropertyOptions,
-): PropertyDecorator {
+export const ApiField = function (options: IApiPropertyOptions): PropertyDecorator {
   return combinePropertyDecorator(
     ApiProperty({
       // type: options.type,
@@ -117,9 +100,7 @@ export const ApiField = function (
   );
 };
 
-export const RestApiField = function (
-  options: IApiPropertyOptions,
-): PropertyDecorator {
+export const RestApiField = function (options: IApiPropertyOptions): PropertyDecorator {
   return ApiProperty({
     description: options.description,
     required: !options.nullable,
@@ -127,9 +108,7 @@ export const RestApiField = function (
   });
 };
 
-export const GraphQLField = function (
-  options: IApiPropertyOptions,
-): PropertyDecorator {
+export const GraphQLField = function (options: IApiPropertyOptions): PropertyDecorator {
   return Field(options.type && getReturnTypeFunc(options.type), {
     description: options.description,
     nullable: options.nullable,

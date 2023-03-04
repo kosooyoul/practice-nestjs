@@ -16,9 +16,7 @@ export type MongoDBMatches = any;
 export const ObjectId = function (objectIdString: string): ObjectId {
   return new mongoose.Types.ObjectId(objectIdString);
 };
-export const NullableObjectId = function (
-  objectIdString: Nullable<string>,
-): Nullable<ObjectId> {
+export const NullableObjectId = function (objectIdString: Nullable<string>): Nullable<ObjectId> {
   if (objectIdString == null) {
     return null;
   }
@@ -37,9 +35,7 @@ export class ApiResponseFormat<T> {
 }
 export type ApiResponse<T> = Promise<ApiResponseFormat<T | Error>>;
 
-export const ApiResponse = async function <T extends ApiResponseClass>(
-  dataOrError: T,
-): Promise<ApiResponseFormat<T>> {
+export const ApiResponse = async function <T extends ApiResponseClass>(dataOrError: T): Promise<ApiResponseFormat<T>> {
   const response = new ApiResponseFormat<T>();
   response.success = false;
   response.timestamp = Date.now();

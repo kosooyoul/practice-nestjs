@@ -1,7 +1,4 @@
-import {
-  ValidatorConstraint,
-  ValidatorConstraintInterface,
-} from 'class-validator';
+import { ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
 
 @ValidatorConstraint()
 export class PasswordValidator implements ValidatorConstraintInterface {
@@ -13,9 +10,7 @@ export class PasswordValidator implements ValidatorConstraintInterface {
     // const upperAb = /[A-Z]/.test(text)
     const alphabet = /[a-zA-Z]/.test(text);
     const number = /[0-9]/.test(text);
-    const special = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/.test(
-      text,
-    );
+    const special = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/.test(text);
     // const mixed = (lowerAb? 1: 0) + (upperAb? 1: 0) + (number? 1: 0) + (special? 1: 0)
     const mixed = (alphabet ? 1 : 0) + (number ? 1 : 0) + (special ? 1 : 0);
 
