@@ -1,17 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-const env = process.env.NODE_ENV?.toLowerCase() || 'local';
+import { GlobalConfig } from './config';
 
 @Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `env/.env.${env}`,
+      envFilePath: `env/.env.${GlobalConfig.NODE_ENV}`,
     }),
   ],
 })
-export class GlobalConfigModule {
-  // Do nothing
-}
+export class GlobalConfigModule {}
