@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from 'nestjs-typegoose';
 import { Account } from '@/hanulse/domain/account.entity';
 import { ReturnModelType } from '@typegoose/typegoose';
-import { Nullable } from '@/global/common/types';
 import { IAccountFilter } from '@/hanulse/application/dto/account/account-filter';
 import { IAccountFields } from '@/hanulse/application/dto/account/account-fields';
 import { IAccountRepository } from '@/hanulse/infrastructure/interface/account.repository';
+import { Nullable } from '@/global/common/types/native';
 
 // const TAG = 'AccountMongoRepository';
 

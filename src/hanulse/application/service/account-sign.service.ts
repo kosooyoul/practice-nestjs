@@ -7,7 +7,8 @@ import { ApolloError } from 'apollo-server-core';
 import { ISignature } from '@/global/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
 import { ISignInResult } from '../dto/sign/sign-in-result';
-import { Nullable, ObjectId } from '@/global/common/types';
+import { ObjectId } from '@/global/common/types';
+import { Nullable } from '@/global/common/types/native';
 import * as jwt from 'jsonwebtoken';
 
 const TAG = 'AccountSignService';

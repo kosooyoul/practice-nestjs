@@ -13,9 +13,9 @@ import { AccountService } from '@/hanulse/application/service/account.service';
 import SignUpResponse from '../dto/sign/response/SignUpResponse';
 import SignOutResponse from '../dto/sign/response/SignOutResponse';
 import RefreshSignResponse from '../dto/sign/response/RefreshSignResponse';
-import { Nullable } from '@/global/common/types';
 import { PostApi } from '@/global/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { Nullable } from '@/global/common/types/native';
 
 const TAG = 'SignResolver';
 

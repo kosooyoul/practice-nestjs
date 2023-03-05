@@ -1,7 +1,7 @@
-import { Optional } from '@/global/common/types';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Optional } from '@/global/common/types/native';
 import { ISignature } from './auth.interface';
 
 @Injectable()
