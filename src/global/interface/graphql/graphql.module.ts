@@ -5,7 +5,7 @@ import { NestFactory } from '@nestjs/core';
 import { GraphQLModule, GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql';
 import { GraphQLError, GraphQLFormattedError, GraphQLSchema, printSchema } from 'graphql';
 import { GlobalErrorCodes } from '@/global/common/error-codes';
-import { mkdirSync, writeFileSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import GlobalStringUtils from '@/global/common/utils/string.utils';
 
@@ -28,8 +28,12 @@ async function generateGraphQLSchema(resolvers: any[]): Promise<GraphQLSchema> {
 function saveTempTextFile(text: string): string {
   const hash = GlobalStringUtils.hashObject(text);
   const filepath = join(process.cwd(), `/.temp/${hash}`);
-  mkdirSync(join(process.cwd(), '/.temp/'), { recursive: true });
-  writeFileSync(filepath, text);
+
+  if (existsSync(filepath) == false) {
+    mkdirSync(join(process.cwd(), '/.temp/'), { recursive: true });
+    writeFileSync(filepath, text);
+  }
+
   return filepath;
 }
 
