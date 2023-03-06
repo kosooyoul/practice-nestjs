@@ -3,8 +3,11 @@ import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { DynamicModule } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { GraphQLModule, GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql';
-import { GraphQLError, GraphQLFormattedError, GraphQLSchema } from 'graphql';
+import { GraphQLError, GraphQLFormattedError, GraphQLSchema, printSchema } from 'graphql';
 import { GlobalErrorCodes } from '@/global/common/error-codes';
+import { mkdirSync, writeFileSync } from 'fs';
+import { join } from 'path';
+import GlobalStringUtils from '@/global/common/utils/string.utils';
 
 export interface IGraphQLOptions {
   path: string;
@@ -22,22 +25,30 @@ async function generateGraphQLSchema(resolvers: any[]): Promise<GraphQLSchema> {
   return schema;
 }
 
+function saveTempTextFile(text: string): string {
+  const hash = GlobalStringUtils.hashObject(text);
+  const filepath = join(process.cwd(), `/.temp/${hash}`);
+  mkdirSync(join(process.cwd(), '/.temp/'), { recursive: true });
+  writeFileSync(filepath, text);
+  return filepath;
+}
+
 export const DefaultGraphQLModule = (options: IGraphQLOptions): DynamicModule => {
   return GraphQLModule.forRootAsync<ApolloDriverConfig>({
     driver: ApolloDriver,
     imports: [options.module],
-    useFactory: async (): Promise<any> => {
+    useFactory: async (): Promise<Omit<ApolloDriverConfig, 'driver'>> => {
       const schema = await generateGraphQLSchema(options.resolvers);
+      const filepath = saveTempTextFile(printSchema(schema));
+
       return {
-        uploads: false,
         cors: true,
-        validate: true,
         playground: GlobalConfig.PLAYGROUND_ENABLED,
         introspection: GlobalConfig.PLAYGROUND_ENABLED,
         debug: GlobalConfig.PLAYGROUND_ENABLED,
         autoSchemaFile: false,
-        // typePaths: [`./sdl/${name}-schema.gql`],
-        schema: schema,
+        typePaths: [filepath],
+        // schema: schema,
         formatError: (error: GraphQLError): GraphQLFormattedError => {
           const originalError = error.originalError;
           if (originalError) {
