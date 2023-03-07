@@ -1,22 +1,12 @@
 import { ObjectType } from '@nestjs/graphql';
-import { ApiField } from '@/global/interface/rest/decorator';
+import { AuoiApiField } from '@/global/interface/common/decorator';
 
 @ObjectType()
 export default class TestResponse {
-  @ApiField({
-    type: String,
-    description: '제목',
-    nullable: false,
-    example: 'title',
-  })
+  @AuoiApiField({ type: String, description: '제목', nullable: false, example: 'title' })
   title!: string;
 
-  @ApiField({
-    type: String,
-    description: '설명',
-    nullable: false,
-    example: 'description',
-  })
+  @AuoiApiField({ type: String, description: '설명', nullable: false, example: 'description' })
   description!: string;
 
   static from(obj: any): TestResponse {

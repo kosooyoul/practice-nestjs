@@ -1,12 +1,12 @@
 import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
 import { catchError, map } from 'rxjs';
-import { ApiResponse } from '@/global/common/types';
+import { AuoiRestApiResponse } from './types';
 
-export class ApiResponseInterceptor implements NestInterceptor {
+export class AuoiRestApiResponseInterceptor implements NestInterceptor {
   async intercept(_context: ExecutionContext, next: CallHandler) {
     return next.handle().pipe(
-      map(async data => ApiResponse(data)),
-      catchError(async err => ApiResponse(err)),
+      map(async data => AuoiRestApiResponse(data)),
+      catchError(async err => AuoiRestApiResponse(err)),
     );
   }
 }

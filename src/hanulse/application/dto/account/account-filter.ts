@@ -1,4 +1,4 @@
-import { ObjectId } from '@/global/common/types';
+import { ObjectId } from '@/global/infrastructure/mongo/types';
 
 export interface IAccountFilter {
   _id?: ObjectId;

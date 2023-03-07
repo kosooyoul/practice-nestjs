@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ObjectId } from '@/global/common/types';
+import { ObjectId } from '@/global/infrastructure/mongo/types';
 import { Account } from '@/hanulse/domain/account.entity';
 import { IAccountRepository } from '@/hanulse/infrastructure/interface/account.repository';
 import { IAccountFilter } from '../dto/account/account-filter';

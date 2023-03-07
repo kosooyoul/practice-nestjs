@@ -1,5 +1,5 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
-import { ObjectId } from '@/global/common/types';
+import { ObjectId } from '@/global/infrastructure/mongo/types';
 
 @ModelOptions({
   schemaOptions: { collection: 'refresh_tokens', versionKey: false },

@@ -5,7 +5,7 @@ import { ISignature } from '@/global/auth/auth.interface';
 import { ApolloError } from 'apollo-server-core';
 import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
 import MeResponse from '@/hanulse/interface/dto/account/response/MeResponse';
-import { GetApi } from '@/global/interface/rest/decorator';
+import { AuoiGetApi } from '@/global/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
 
 const TAG = 'AccountController';
@@ -16,7 +16,7 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @UseGuards(SignatureAuthGuard)
-  @GetApi(() => MeResponse, {
+  @AuoiGetApi(() => MeResponse, {
     path: '/me',
     description: '내 계정 정보 조회',
     auth: true,
