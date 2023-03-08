@@ -15,7 +15,7 @@ import SignOutResponse from '../dto/sign/response/SignOutResponse';
 import RefreshSignResponse from '../dto/sign/response/RefreshSignResponse';
 import { AuoiPostApi } from '@/global/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
-import { Nullable } from '@/global/common/types/native';
+import { Nullable } from '@/common/types/native';
 
 const TAG = 'SignResolver';
 

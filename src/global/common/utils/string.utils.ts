@@ -3,7 +3,7 @@ import * as uuidBase64 from 'uuid-base64';
 import * as uuid from 'uuid';
 import * as md5 from 'md5';
 
-export default class GlobalStringUtils {
+export default class AuoiStringUtils {
   static toBase64(text: string): string {
     const buffer = new ArrayBuffer(text.length);
     const bytes = new Uint8Array(buffer);

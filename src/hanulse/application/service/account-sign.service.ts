@@ -1,14 +1,14 @@
-import { Time } from '@/global/common/constants/time';
+import { Time } from '@/common/constants/time';
 import { Account } from '@/hanulse/domain/account.entity';
-import { TokenType } from '@/global/common/enums';
+import { TokenType } from '@/common/enums';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApolloError } from 'apollo-server-core';
 import { ISignature } from '@/global/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
 import { ISignInResult } from '../dto/sign/sign-in-result';
-import { ObjectId } from '@/global/infrastructure/mongo/types';
-import { Nullable } from '@/global/common/types/native';
+import { ObjectId } from '@/common/types/mongo';
+import { Nullable } from '@/common/types/native';
 import * as jwt from 'jsonwebtoken';
 
 const TAG = 'AccountSignService';

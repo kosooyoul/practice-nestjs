@@ -1,4 +1,4 @@
-import { Optional } from '../types/native';
+import { Optional } from '@/common/types/native';
 
 export default class AuoiDecoratorUtils {
   static combinePropertyDecorator(...decorators: PropertyDecorator[]): PropertyDecorator {

@@ -1,7 +1,7 @@
 import { Validate, IsMongoId, IsEmail, ValidateNested, Length } from 'class-validator';
 import { PasswordValidator } from './validators/password.validator';
 
-class GlobalInputValidatorPrototype {
+class AuoiInputValidatorPrototype {
   IsMongoId(message?: string): PropertyDecorator {
     return IsMongoId({
       message: message || 'INPUT_MONGO_ID_IS_NOT_VALID',
@@ -41,4 +41,4 @@ class GlobalInputValidatorPrototype {
   }
 }
 
-export const GlobalInputValidator = new GlobalInputValidatorPrototype();
+export const AuoiInputValidator = new AuoiInputValidatorPrototype();

@@ -1,4 +1,4 @@
-import { Optional } from '@/global/common/types/native';
+import { Optional } from '@/common/types/native';
 
 type AuoiRestApiResponseClass = { constructor: { name: string } };
 export class AuoiRestApiResponseFormat<T> {

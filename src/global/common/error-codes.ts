@@ -1,30 +1,30 @@
-import { AuoiError } from './types/error';
+import { MultiLanguageError } from '@/common/types/error';
 
-export enum GlobalErrorCodes {
+export enum AuoiErrorCodes {
   UNKNOWN_ERROR = 'UNKNOWN_ERROR',
   SUCCESS = 'SUCCESS',
 }
 
-AuoiError.registerMessages(
+MultiLanguageError.registerMessages(
   {
-    [GlobalErrorCodes.UNKNOWN_ERROR]: '알 수 없는 에러가 발생하였습니다.',
-    [GlobalErrorCodes.SUCCESS]: '요청이 성공하였습니다.',
+    [AuoiErrorCodes.UNKNOWN_ERROR]: '알 수 없는 에러가 발생하였습니다.',
+    [AuoiErrorCodes.SUCCESS]: '요청이 성공하였습니다.',
   },
   'ko',
 );
 
-AuoiError.registerMessages(
+MultiLanguageError.registerMessages(
   {
-    [GlobalErrorCodes.UNKNOWN_ERROR]: 'An unknown error has occurred.',
-    [GlobalErrorCodes.SUCCESS]: 'Your request was successful.',
+    [AuoiErrorCodes.UNKNOWN_ERROR]: 'An unknown error has occurred.',
+    [AuoiErrorCodes.SUCCESS]: 'Your request was successful.',
   },
   'en',
 );
 
-AuoiError.registerMessages(
+MultiLanguageError.registerMessages(
   {
-    [GlobalErrorCodes.UNKNOWN_ERROR]: '不明なエラーが発生しました。',
-    [GlobalErrorCodes.SUCCESS]: 'リクエストが成功しました。',
+    [AuoiErrorCodes.UNKNOWN_ERROR]: '不明なエラーが発生しました。',
+    [AuoiErrorCodes.SUCCESS]: 'リクエストが成功しました。',
   },
   'ja',
 );

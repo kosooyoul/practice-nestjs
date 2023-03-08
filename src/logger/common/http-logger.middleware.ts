@@ -1,9 +1,9 @@
-import { Nullable } from '@/global/common/types/native';
+import { Nullable } from '@/common/types/native';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request } from 'express';
 import { IHttpLog } from './types';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { GlobalConfig } from '../../global/config/config';
+import { AuoiConfig } from '../../global/config/config';
 
 @Injectable()
 export class HttpLoggerMiddleware implements NestMiddleware {
@@ -146,6 +146,6 @@ export class HttpLoggerMiddleware implements NestMiddleware {
   }
 
   private getProcessorName() {
-    return GlobalConfig.APP_NAME + '@' + GlobalConfig.NODE_ENV + '_' + GlobalConfig.APP_VERSION + '#' + process.pid;
+    return AuoiConfig.APP_NAME + '@' + AuoiConfig.NODE_ENV + '_' + AuoiConfig.APP_VERSION + '#' + process.pid;
   }
 }

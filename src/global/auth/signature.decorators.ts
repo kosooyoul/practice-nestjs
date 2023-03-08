@@ -1,4 +1,4 @@
-import { ObjectId } from '@/global/infrastructure/mongo/types';
+import { ObjectId } from '@/common/types/mongo';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
 

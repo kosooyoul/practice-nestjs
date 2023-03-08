@@ -1,13 +1,13 @@
-import { GlobalConfig } from '@/global/config/config';
+import { AuoiConfig } from '@/global/config/config';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { DynamicModule } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { GraphQLModule, GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql';
 import { GraphQLError, GraphQLFormattedError, GraphQLSchema, printSchema } from 'graphql';
-import { GlobalErrorCodes } from '@/global/common/error-codes';
+import { AuoiErrorCodes } from '@/global/common/error-codes';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import GlobalStringUtils from '@/global/common/utils/string.utils';
+import AuoiStringUtils from '@/global/common/utils/string.utils';
 
 export interface IAuoiGraphQLOptions {
   path: string;
@@ -28,9 +28,9 @@ export class AuoiGraphQLModule {
 
         return {
           cors: true,
-          playground: GlobalConfig.PLAYGROUND_ENABLED,
-          introspection: GlobalConfig.PLAYGROUND_ENABLED,
-          debug: GlobalConfig.PLAYGROUND_ENABLED,
+          playground: AuoiConfig.PLAYGROUND_ENABLED,
+          introspection: AuoiConfig.PLAYGROUND_ENABLED,
+          debug: AuoiConfig.PLAYGROUND_ENABLED,
           autoSchemaFile: false,
           typePaths: [filepath],
           // schema: schema,
@@ -39,7 +39,7 @@ export class AuoiGraphQLModule {
             if (originalError) {
               return {
                 message: originalError.message,
-                extensions: { code: GlobalErrorCodes.UNKNOWN_ERROR },
+                extensions: { code: AuoiErrorCodes.UNKNOWN_ERROR },
               };
             }
           },
@@ -71,7 +71,7 @@ export class AuoiGraphQLModule {
   }
 
   private static saveTempTextFile(text: string): string {
-    const hash = GlobalStringUtils.hashObject(text);
+    const hash = AuoiStringUtils.hashObject(text);
     const filepath = join(process.cwd(), `/.temp/${hash}`);
 
     if (existsSync(filepath) == false) {

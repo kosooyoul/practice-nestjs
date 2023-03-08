@@ -1,6 +1,6 @@
 import { Transform, Type } from 'class-transformer';
 
-class GlobalInputTransformerPrototype {
+class AuoiInputTransformerPrototype {
   Trim(): PropertyDecorator {
     return Transform(({ value }) => value && value.trim());
   }
@@ -29,4 +29,4 @@ class GlobalInputTransformerPrototype {
   }
 }
 
-export const GlobalInputTransformer = new GlobalInputTransformerPrototype();
+export const AuoiInputTransformer = new AuoiInputTransformerPrototype();

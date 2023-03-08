@@ -5,7 +5,7 @@ import { ReturnModelType } from '@typegoose/typegoose';
 import { IAccountFilter } from '@/hanulse/application/dto/account/account-filter';
 import { IAccountFields } from '@/hanulse/application/dto/account/account-fields';
 import { IAccountRepository } from '@/hanulse/infrastructure/interface/account.repository';
-import { Nullable } from '@/global/common/types/native';
+import { Nullable } from '@/common/types/native';
 
 // const TAG = 'AccountMongoRepository';
 

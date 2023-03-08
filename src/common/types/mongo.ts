@@ -1,5 +1,5 @@
 import { mongoose } from '@typegoose/typegoose';
-import { Nullable } from '../../common/types/native';
+import { Nullable } from './native';
 
 export type MongoDBMatches = any;
 

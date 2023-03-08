@@ -1,14 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { GlobalConfig } from './config';
+import { AuoiConfig } from './config';
 
 @Global()
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: `env/.env.${GlobalConfig.NODE_ENV}`,
+      envFilePath: `env/.env.${AuoiConfig.NODE_ENV}`,
     }),
   ],
 })
-export class GlobalConfigModule {}
+export class AuoiConfigModule {}

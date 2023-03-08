@@ -1,7 +1,7 @@
 import { IMultiLanguageString, selectLanguage, SupportedLanguage } from './multi-language';
 import { Map, Nullable } from './native';
 
-export class AuoiError extends Error {
+export class MultiLanguageError extends Error {
   private static messages: Map<IMultiLanguageString> = {};
 
   code!: string;
@@ -12,7 +12,7 @@ export class AuoiError extends Error {
   }
 
   getMessage(language?: SupportedLanguage): Nullable<string> {
-    return selectLanguage(AuoiError.messages[this.code], language) || selectLanguage(AuoiError.messages[this.code], 'en');
+    return selectLanguage(MultiLanguageError.messages[this.code], language) || selectLanguage(MultiLanguageError.messages[this.code], 'en');
   }
 
   static registerMessages(messages: Map<string>, language: SupportedLanguage): void {
@@ -22,6 +22,6 @@ export class AuoiError extends Error {
   }
 
   static getMessage(code: string, language?: SupportedLanguage): Nullable<string> {
-    return selectLanguage(AuoiError.messages[code], language) || selectLanguage(AuoiError.messages[code], 'en');
+    return selectLanguage(MultiLanguageError.messages[code], language) || selectLanguage(MultiLanguageError.messages[code], 'en');
   }
 }

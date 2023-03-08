@@ -1,7 +1,7 @@
 import { Account } from '@/hanulse/domain/account.entity';
 import { IAccountFilter } from '@/hanulse/application/dto/account/account-filter';
 import { IAccountFields } from '@/hanulse/application/dto/account/account-fields';
-import { Nullable } from '@/global/common/types/native';
+import { Nullable } from '@/common/types/native';
 
 // const TAG = "IAccountRepository"
 

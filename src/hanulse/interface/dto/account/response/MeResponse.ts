@@ -1,5 +1,5 @@
 import { ID, ObjectType } from '@nestjs/graphql';
-import { ObjectId } from '@/global/infrastructure/mongo/types';
+import { ObjectId } from '@/common/types/mongo';
 import { Account } from '@/hanulse/domain/account.entity';
 import { AuoiApiField } from '@/global/interface/common/decorator';
 

@@ -1,17 +1,17 @@
 import { InputType } from '@nestjs/graphql';
-import { GlobalInputValidator } from '@/global/common/decorators/input-validator.decorator';
-import { GlobalInputTransformer } from '@/global/common/decorators/input-transformer.decorator';
+import { AuoiInputValidator } from '@/global/common/decorators/input-validator.decorator';
+import { AuoiInputTransformer } from '@/global/common/decorators/input-transformer.decorator';
 import { IAccountFilter } from '@/hanulse/application/dto/account/account-filter';
 import { AuoiApiField } from '@/global/interface/common/decorator';
 
 @InputType()
 export default class SignInRequest {
-  @GlobalInputTransformer.NormalizeEmail()
-  @GlobalInputValidator.IsEmail()
+  @AuoiInputTransformer.NormalizeEmail()
+  @AuoiInputValidator.IsEmail()
   @AuoiApiField({ type: String, description: '로그인 이메일', nullable: false, example: 'test@test.com' })
   email!: string;
 
-  @GlobalInputValidator.IsNotEmptyString()
+  @AuoiInputValidator.IsNotEmptyString()
   @AuoiApiField({ type: String, description: '로그인 비밀번호', nullable: false, example: 'a123456!' })
   password!: string;
 

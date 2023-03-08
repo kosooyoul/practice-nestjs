@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ISignature } from './auth.interface';
 import { JwtService } from '@nestjs/jwt';
-import { ObjectId } from '@/global/infrastructure/mongo/types';
-import { Optional } from '@/global/common/types/native';
+import { ObjectId } from '@/common/types/mongo';
+import { Optional } from '@/common/types/native';
 
 @Injectable()
 export class AuthService {

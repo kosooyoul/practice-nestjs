@@ -1,5 +1,5 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
-import { ObjectId } from '@/global/infrastructure/mongo/types';
+import { ObjectId } from '@/common/types/mongo';
 
 @ModelOptions({ schemaOptions: { collection: 'accounts', versionKey: false } })
 @Index({ email: 1 }, { unique: true })

@@ -1,11 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ObjectId } from '@/global/infrastructure/mongo/types';
+import { ObjectId } from '@/common/types/mongo';
 import { Account } from '@/hanulse/domain/account.entity';
 import { IAccountRepository } from '@/hanulse/infrastructure/interface/account.repository';
 import { IAccountFilter } from '../dto/account/account-filter';
 import { IAccountFields } from '../dto/account/account-fields';
 import * as bcrypt from 'bcrypt';
-import { Nullable, Optional } from '@/global/common/types/native';
+import { Nullable, Optional } from '@/common/types/native';
 
 // const TAG = "AccountService"
 

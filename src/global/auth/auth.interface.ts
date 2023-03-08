@@ -1,5 +1,5 @@
-import { ObjectId } from '@/global/infrastructure/mongo/types';
-import { TokenType } from '@/global/common/enums';
+import { ObjectId } from '@/common/types/mongo';
+import { TokenType } from '@/common/enums';
 
 export interface ISignature {
   id: ObjectId;
