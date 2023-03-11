@@ -9,7 +9,7 @@ interface IAuoiRestApiOptions {
   auth?: boolean;
 }
 
-export const getRestApiDecorator = function (
+const getRestApiDecorator = function (
   methodDecorator: (path?: string | string[]) => MethodDecorator,
   returnTypeFunc?: (returns?: void) => any,
   options?: IAuoiRestApiOptions,
@@ -32,26 +32,26 @@ export const getRestApiDecorator = function (
   }
 };
 
-export const AuoiAllApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(All, returnTypeFunc, options);
 };
 
-export const AuoiGetApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestGetApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(Get, returnTypeFunc, options);
 };
 
-export const AuoiPostApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestPostApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(Post, returnTypeFunc, options);
 };
 
-export const AuoiPatchApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestPatchApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(Patch, returnTypeFunc, options);
 };
 
-export const AuoiPutApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestPutApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(Put, returnTypeFunc, options);
 };
 
-export const AuoiDeleteApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
+export const AuoiRestDeleteApi = function (returnTypeFunc?: (returns?: void) => any, options?: IAuoiRestApiOptions): MethodDecorator {
   return getRestApiDecorator(Delete, returnTypeFunc, options);
 };

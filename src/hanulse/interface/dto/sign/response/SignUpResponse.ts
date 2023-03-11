@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-import { AuoiApiField } from '@/auoi/interface/common/decorator';
+import { AuoiApiField } from '@/auoi/interface/common/api-field.decorator';
 import { ISignInResult } from '@/hanulse/application/dto/sign/sign-in-result';
 
 @ObjectType()

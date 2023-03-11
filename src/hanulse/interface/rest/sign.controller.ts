@@ -13,7 +13,7 @@ import { HanulseUserService } from '@/hanulse/application/service/user.service';
 import SignUpResponse from '../dto/sign/response/SignUpResponse';
 import SignOutResponse from '../dto/sign/response/SignOutResponse';
 import RefreshSignResponse from '../dto/sign/response/RefreshSignResponse';
-import { AuoiPostApi } from '@/auoi/interface/rest/decorator';
+import { AuoiRestPostApi } from '@/auoi/interface/rest/api.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import { Nullable } from '@/common/types/native';
 
@@ -24,7 +24,7 @@ const TAG = 'SignResolver';
 export class SignController {
   constructor(private readonly userService: HanulseUserService, private readonly signService: AccountSignService) {}
 
-  @AuoiPostApi(() => SignUpResponse, {
+  @AuoiRestPostApi(() => SignUpResponse, {
     path: '/up',
     description: '회원 가입',
   })
@@ -39,7 +39,7 @@ export class SignController {
     return SignUpResponse.fromSignInResult(result);
   }
 
-  @AuoiPostApi(() => SignInResponse, {
+  @AuoiRestPostApi(() => SignInResponse, {
     path: '/in',
     description: '로그인',
   })
@@ -53,7 +53,7 @@ export class SignController {
   }
 
   @UseGuards(SignatureAuthGuard)
-  @AuoiPostApi(() => SignOutResponse, {
+  @AuoiRestPostApi(() => SignOutResponse, {
     path: '/out',
     description: '로그아웃',
     auth: true,
@@ -64,7 +64,7 @@ export class SignController {
     return SignOutResponse.fromSuccess(success);
   }
 
-  @AuoiPostApi(() => RefreshSignResponse, {
+  @AuoiRestPostApi(() => RefreshSignResponse, {
     path: '/refresh',
     description: '인증 리프레시',
     auth: true,

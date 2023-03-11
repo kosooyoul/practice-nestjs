@@ -5,7 +5,7 @@ import { ISignature } from '@/auoi/auth/auth.interface';
 import { ApolloError } from 'apollo-server-core';
 import { SignatureAuthGuard } from '@/auoi/auth/signature-auth.guard';
 import HanulseMeResponse from '@/hanulse/interface/dto/user/response/me.response';
-import { AuoiGetApi } from '@/auoi/interface/rest/decorator';
+import { AuoiRestGetApi } from '@/auoi/interface/rest/api.decorator';
 import { ApiTags } from '@nestjs/swagger';
 
 const TAG = 'HanulseMeController';
@@ -16,7 +16,7 @@ export class HanulseMeController {
   constructor(private readonly userService: HanulseUserService) {}
 
   @UseGuards(SignatureAuthGuard)
-  @AuoiGetApi(() => HanulseMeResponse, {
+  @AuoiRestGetApi(() => HanulseMeResponse, {
     path: '/',
     description: '내 정보 조회',
     auth: true,
