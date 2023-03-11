@@ -2,10 +2,10 @@ import { HanulseServiceModule } from '@/hanulse/application/service.module';
 import { Module } from '@nestjs/common';
 import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.module';
 import { AuoiGraphQLModule } from '@/auoi/interface/graphql/graphql.module';
-import { AccountResolver } from './graphql/account.resolver';
+import { HanulseMeResolver } from './graphql/me.resolver';
 import { SignResolver } from './graphql/sign.resolver';
 
-export const HanulseGraphQLResolvers = [AccountResolver, SignResolver];
+export const HanulseGraphQLResolvers = [HanulseMeResolver, SignResolver];
 
 @Module({
   imports: [

@@ -1,17 +1,17 @@
 import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.module';
 import { Module } from '@nestjs/common';
-import { IAccountRepository } from '@/hanulse/infrastructure/interface/account.repository';
-import { AccountService } from './service/account.service';
-import { AccountMongoRepository } from '@/hanulse/infrastructure/mongo/account.repository';
+import { IHanulseUserRepository } from '@/hanulse/infrastructure/interface/user.repository';
+import { HanulseUserService } from './service/user.service';
+import { IHanulseUserMongoRepository } from '@/hanulse/infrastructure/mongo/user.repository';
 import { JwtModule } from '@nestjs/jwt';
 import { IRefreshTokenRepository } from '../infrastructure/interface/refresh-token.repository';
 import { RefreshTokenMongoRepository } from '../infrastructure/mongo/refresh-token.repository';
 import { AccountSignService } from './service/account-sign.service';
 import { IndexService } from './service/index.service';
 
-const services = [IndexService, AccountService, AccountSignService];
+const services = [IndexService, HanulseUserService, AccountSignService];
 const repositories = [
-  { provide: IAccountRepository, useClass: AccountMongoRepository },
+  { provide: IHanulseUserRepository, useClass: IHanulseUserMongoRepository },
   { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository },
 ];
 

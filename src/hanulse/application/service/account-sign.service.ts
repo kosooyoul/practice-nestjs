@@ -1,5 +1,4 @@
 import { Time } from '@/common/constants/time';
-import { Account } from '@/hanulse/domain/account.entity';
 import { TokenType } from '@/common/enums';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -7,9 +6,9 @@ import { ApolloError } from 'apollo-server-core';
 import { ISignature } from '@/auoi/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
 import { ISignInResult } from '../dto/sign/sign-in-result';
-import { ObjectId } from '@/common/types/mongo';
 import { Nullable } from '@/common/types/native';
 import * as jwt from 'jsonwebtoken';
+import { HanulseUser } from '@/hanulse/domain/user.entity';
 
 const TAG = 'AccountSignService';
 
@@ -21,11 +20,11 @@ export class AccountSignService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(account: Account, keep: boolean): Promise<ISignInResult> {
+  async signIn(user: HanulseUser, keep: boolean): Promise<ISignInResult> {
     const signature: any = {
-      id: account._id.toHexString(),
-      identity: account.email,
-      name: account.username,
+      id: user.id,
+      name: user.name,
+      identity: user.cellPhoneNumber,
     };
 
     const accessToken = this.generateToken(signature, TokenType.ACCESS, keep);
@@ -33,7 +32,7 @@ export class AccountSignService {
     const expiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, keep));
 
     await this.refreshTokenRepository.createRefreshToken({
-      signatureId: account._id,
+      signatureId: user._id,
       refreshToken: refreshToken,
       deleteAt: new Date(Date.now() + Time.MILLS_90_DAYS),
     });
@@ -116,7 +115,7 @@ export class AccountSignService {
       if (typeof data != 'object') return null;
 
       return {
-        id: ObjectId(data['id'] || data['_id']),
+        id: data['id'],
         identity: data['identity'],
         name: data['name'],
         keep: data['keep'],

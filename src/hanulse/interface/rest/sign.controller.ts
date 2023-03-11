@@ -9,7 +9,7 @@ import { Authorization } from '@/auoi/auth/authorization.decorators';
 import { ISignature } from '@/auoi/auth/auth.interface';
 import RefreshSignRequest from '../dto/sign/request/RefreshSignRequest';
 import SignInResponse from '../dto/sign/response/SignInResponse';
-import { AccountService } from '@/hanulse/application/service/account.service';
+import { HanulseUserService } from '@/hanulse/application/service/user.service';
 import SignUpResponse from '../dto/sign/response/SignUpResponse';
 import SignOutResponse from '../dto/sign/response/SignOutResponse';
 import RefreshSignResponse from '../dto/sign/response/RefreshSignResponse';
@@ -22,19 +22,19 @@ const TAG = 'SignResolver';
 @ApiTags('Sign')
 @Controller('/v0/sign')
 export class SignController {
-  constructor(private readonly accountService: AccountService, private readonly accountSignService: AccountSignService) {}
+  constructor(private readonly userService: HanulseUserService, private readonly signService: AccountSignService) {}
 
   @AuoiPostApi(() => SignUpResponse, {
     path: '/up',
     description: '회원 가입',
   })
   async signUp(@Body() request: SignUpRequest): Promise<SignUpResponse> {
-    const emailExisting = await this.accountService.IsExistingAccountEmail(request.email);
-    if (emailExisting) throw new ApolloError('ACCOUNT_EMAIL_ALREADY_HAS_BEEN_USED', TAG);
+    const emailExisting = await this.userService.isExistingUserCellPhoneNumber(request.cellPhoneNumber);
+    if (emailExisting) throw new ApolloError('USER_EMAIL_ALREADY_HAS_BEEN_USED', TAG);
 
-    const account = await this.accountService.createAccount(request.toAccountFields());
+    const user = await this.userService.createUser(request.toUserFields());
 
-    const result = await this.accountSignService.signIn(account, false);
+    const result = await this.signService.signIn(user, false);
 
     return SignUpResponse.fromSignInResult(result);
   }
@@ -44,10 +44,10 @@ export class SignController {
     description: '로그인',
   })
   async signIn(@Body() request: SignInRequest): Promise<SignInResponse> {
-    const account = await this.accountService.getAccountByFilterWithPassword(request.toAccountFilter(), request.password);
-    if (account == null) throw new ApolloError('ACCOUNT_PASSWORD_DOES_NOT_MATCH', TAG);
+    const user = await this.userService.getUserByFilterWithPassword(request.toUserFilter(), request.password);
+    if (user == null) throw new ApolloError('USER_PASSWORD_DOES_NOT_MATCH', TAG);
 
-    const result = await this.accountSignService.signIn(account, request.keep);
+    const result = await this.signService.signIn(user, request.keep);
 
     return SignInResponse.fromSignInResult(result);
   }
@@ -59,7 +59,7 @@ export class SignController {
     auth: true,
   })
   async signOut(@Signature() signature: ISignature): Promise<SignOutResponse> {
-    const success = await this.accountSignService.signOut(signature);
+    const success = await this.signService.signOut(signature);
 
     return SignOutResponse.fromSuccess(success);
   }
@@ -72,7 +72,7 @@ export class SignController {
   async refreshSign(@Authorization() accessToken: Nullable<string>, @Body() request: RefreshSignRequest): Promise<RefreshSignResponse> {
     if (accessToken == null) throw new ApolloError('AUTH_TOKEN_IS_NOT_EXISTS', TAG);
 
-    const result = await this.accountSignService.refreshSign(accessToken, request.refreshToken);
+    const result = await this.signService.refreshSign(accessToken, request.refreshToken);
 
     return RefreshSignResponse.fromSignInResult(result);
   }

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ISignature } from './auth.interface';
 import { JwtService } from '@nestjs/jwt';
-import { ObjectId } from '@/common/types/mongo';
 import { Optional } from '@/common/types/native';
 
 @Injectable()
@@ -16,7 +15,7 @@ export class AuthService {
       if (typeof data != 'object') return null;
 
       return {
-        id: ObjectId(data['id'] || data['_id']),
+        id: data['id'],
         identity: data['identity'],
         name: data['name'],
         keep: data['keep'],

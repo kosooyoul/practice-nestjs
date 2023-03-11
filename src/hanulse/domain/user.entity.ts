@@ -14,6 +14,9 @@ export class HanulseUser {
   @Prop({ type: String, required: true })
   cellPhoneNumber!: string;
 
+  @Prop({ type: String, required: false })
+  hashedPassword?: string;
+
   @Prop({ default: Date.now })
   updatedAt!: Date;
 
