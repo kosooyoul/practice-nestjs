@@ -11,12 +11,6 @@ export class HanulseStudent {
   _id!: string;
   id!: string;
 
-  @Prop({ type: String, required: true })
-  title!: string;
-
-  @Prop({ type: String, required: true })
-  description!: string;
-
   @Prop({ type: ObjectId, required: true, get: (oid: ObjectId) => oid.toHexString() })
   groupId!: string;
 
