@@ -1,7 +1,7 @@
 import { HanulseServiceModule } from '@/hanulse/application/service.module';
 import { Module } from '@nestjs/common';
 import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.module';
-import { AuoiGraphQLModule } from '@/global/interface/graphql/graphql.module';
+import { AuoiGraphQLModule } from '@/auoi/interface/graphql/graphql.module';
 import { AccountResolver } from './graphql/account.resolver';
 import { SignResolver } from './graphql/sign.resolver';
 

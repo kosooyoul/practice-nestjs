@@ -1,13 +1,13 @@
 import { Injectable, UseGuards } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
+import { SignatureAuthGuard } from '@/auoi/auth/signature-auth.guard';
 import { ApolloError } from 'apollo-server-core';
 import { AccountSignService } from '@/hanulse/application/service/account-sign.service';
 import SignUpRequest from '../dto/sign/request/SignUpRequest';
 import SignInRequest from '../dto/sign/request/SignInRequest';
-import { Signature } from '@/global/auth/signature.decorators';
-import { Authorization } from '@/global/auth/authorization.decorators';
-import { ISignature } from '@/global/auth/auth.interface';
+import { Signature } from '@/auoi/auth/signature.decorators';
+import { Authorization } from '@/auoi/auth/authorization.decorators';
+import { ISignature } from '@/auoi/auth/auth.interface';
 import RefreshSignRequest from '../dto/sign/request/RefreshSignRequest';
 import SignInResponse from '../dto/sign/response/SignInResponse';
 import { AccountService } from '@/hanulse/application/service/account.service';

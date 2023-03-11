@@ -1,11 +1,11 @@
 import { Controller, UseGuards } from '@nestjs/common';
 import { AccountService } from '@/hanulse/application/service/account.service';
-import { Signature } from '@/global/auth/signature.decorators';
-import { ISignature } from '@/global/auth/auth.interface';
+import { Signature } from '@/auoi/auth/signature.decorators';
+import { ISignature } from '@/auoi/auth/auth.interface';
 import { ApolloError } from 'apollo-server-core';
-import { SignatureAuthGuard } from '@/global/auth/signature-auth.guard';
+import { SignatureAuthGuard } from '@/auoi/auth/signature-auth.guard';
 import MeResponse from '@/hanulse/interface/dto/account/response/MeResponse';
-import { AuoiGetApi } from '@/global/interface/rest/decorator';
+import { AuoiGetApi } from '@/auoi/interface/rest/decorator';
 import { ApiTags } from '@nestjs/swagger';
 
 const TAG = 'AccountController';

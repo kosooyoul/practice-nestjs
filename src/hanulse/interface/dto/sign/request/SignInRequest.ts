@@ -1,8 +1,8 @@
 import { InputType } from '@nestjs/graphql';
-import { AuoiInputValidator } from '@/global/common/decorators/input-validator.decorator';
-import { AuoiInputTransformer } from '@/global/common/decorators/input-transformer.decorator';
+import { AuoiInputValidator } from '@/auoi/common/decorators/input-validator.decorator';
+import { AuoiInputTransformer } from '@/auoi/common/decorators/input-transformer.decorator';
 import { IAccountFilter } from '@/hanulse/application/dto/account/account-filter';
-import { AuoiApiField } from '@/global/interface/common/decorator';
+import { AuoiApiField } from '@/auoi/interface/common/decorator';
 
 @InputType()
 export default class SignInRequest {

@@ -4,7 +4,7 @@ import { TokenType } from '@/common/enums';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApolloError } from 'apollo-server-core';
-import { ISignature } from '@/global/auth/auth.interface';
+import { ISignature } from '@/auoi/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
 import { ISignInResult } from '../dto/sign/sign-in-result';
 import { ObjectId } from '@/common/types/mongo';

@@ -1,13 +1,13 @@
-import { AuoiConfig } from '@/global/config/config';
+import { AuoiConfig } from '@/auoi/config/config';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { DynamicModule } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { GraphQLModule, GraphQLSchemaBuilderModule, GraphQLSchemaFactory } from '@nestjs/graphql';
 import { GraphQLError, GraphQLFormattedError, GraphQLSchema, printSchema } from 'graphql';
-import { AuoiErrorCodes } from '@/global/common/error-codes';
+import { AuoiErrorCodes } from '@/auoi/common/error-codes';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
-import AuoiStringUtils from '@/global/common/utils/string.utils';
+import AuoiStringUtils from '@/auoi/common/utils/string.utils';
 
 export interface IAuoiGraphQLOptions {
   path: string;

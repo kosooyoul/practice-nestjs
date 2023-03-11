@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuoiGraphQLModule } from '@/global/interface/graphql/graphql.module';
+import { AuoiGraphQLModule } from '@/auoi/interface/graphql/graphql.module';
 import { TestResolver } from './graphql/test.resolver';
 
 export const HanulseAdminGraphQLResolvers = [TestResolver];

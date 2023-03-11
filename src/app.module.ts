@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { AuoiConfigModule } from '@/global/config/config.module';
+import { AuoiConfigModule } from '@/auoi/config/config.module';
 import { HanulseModule } from '@/hanulse/hanulse.module';
 import { HanulseAdminModule } from '@/hanulse-admin/hanulse-admin.module';
 import { LoggerModule } from '@/logger/logger.module';

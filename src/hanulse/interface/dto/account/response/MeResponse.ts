@@ -1,7 +1,7 @@
 import { ID, ObjectType } from '@nestjs/graphql';
 import { ObjectId } from '@/common/types/mongo';
 import { Account } from '@/hanulse/domain/account.entity';
-import { AuoiApiField } from '@/global/interface/common/decorator';
+import { AuoiApiField } from '@/auoi/interface/common/decorator';
 
 @ObjectType()
 export default class MeResponse {

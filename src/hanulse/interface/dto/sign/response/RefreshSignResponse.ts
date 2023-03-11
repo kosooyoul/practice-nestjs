@@ -1,6 +1,6 @@
 import { ObjectType } from '@nestjs/graphql';
 import { ISignInResult } from '@/hanulse/application/dto/sign/sign-in-result';
-import { AuoiApiField } from '@/global/interface/common/decorator';
+import { AuoiApiField } from '@/auoi/interface/common/decorator';
 
 @ObjectType()
 export default class RefreshSignResponse {

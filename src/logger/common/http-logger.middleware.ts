@@ -3,7 +3,7 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Request } from 'express';
 import { IHttpLog } from './types';
 import { EventEmitter2 } from '@nestjs/event-emitter';
-import { AuoiConfig } from '../../global/config/config';
+import { AuoiConfig } from '@/auoi/config/config';
 
 @Injectable()
 export class HttpLoggerMiddleware implements NestMiddleware {

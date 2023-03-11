@@ -1,5 +1,5 @@
 import { ObjectType } from '@nestjs/graphql';
-import { AuoiApiField } from '@/global/interface/common/decorator';
+import { AuoiApiField } from '@/auoi/interface/common/decorator';
 
 @ObjectType()
 export default class TestResponse {

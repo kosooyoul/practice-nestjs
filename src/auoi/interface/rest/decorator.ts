@@ -1,7 +1,7 @@
 import { All, Delete, Get, Patch, Post, Put, UseInterceptors } from '@nestjs/common';
 import { AuoiRestApiResponseInterceptor } from './interceptor';
 import { ApiBearerAuth, ApiOperation, ApiCreatedResponse } from '@nestjs/swagger';
-import AuoiDecoratorUtils from '@/global/common/utils/decorator.util';
+import AuoiDecoratorUtils from '@/auoi/common/utils/decorator.util';
 
 interface IAuoiRestApiOptions {
   path: string | string[];

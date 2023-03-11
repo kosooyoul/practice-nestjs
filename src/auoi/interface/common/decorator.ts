@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Field } from '@nestjs/graphql';
-import AuoiDecoratorUtils from '@/global/common/utils/decorator.util';
+import AuoiDecoratorUtils from '@/auoi/common/utils/decorator.util';
 
 interface IAuoiApiPropertyOptions {
   type: any;
