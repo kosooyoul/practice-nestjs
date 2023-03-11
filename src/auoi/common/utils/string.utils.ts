@@ -35,7 +35,7 @@ export default class AuoiStringUtils {
   }
 
   static extractHashTags(text: string): string[] {
-    const regex = /(^[\s\n]*|[\s\n])#([\p{Pc}\p{N}\p{L}\p{Mn}]{1,50})([\s\n]|$)/gmu;
+    const regex = /#[\p{L}]{1,50}/giu;
     const matches = text.match(regex) || [];
     const tags = matches.map(t => t.trim().slice(1));
     return tags;
