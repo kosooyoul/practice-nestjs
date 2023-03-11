@@ -67,11 +67,7 @@ export class HanulseGroupController {
   }
 
   @AuoiPatchApi(() => HanluseGroupUserResponse, { path: '/:groupId([0-9a-fA-F]{24})', description: '그룹 수정' })
-  async updateGroup(
-    @Param('groupId') groupId: string,
-    @Param('userId') userId: string,
-    @Body() request: HanulseUpdateGroupUserRequest,
-  ): Promise<HanluseGroupUserResponse> {
+  async updateGroup(@Param('groupId') groupId: string, @Body() request: HanulseUpdateGroupUserRequest): Promise<HanluseGroupUserResponse> {
     const response = new HanluseGroupUserResponse();
     response.id = '000000000000000000000001';
     response.name = 'Agnes';
