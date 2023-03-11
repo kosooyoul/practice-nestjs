@@ -1,6 +1,7 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
 import { ObjectId } from '@/common/types/mongo';
 
+/** @Deprecated */
 @ModelOptions({ schemaOptions: { collection: 'accounts', versionKey: false } })
 @Index({ email: 1 }, { unique: true })
 export class Account {
