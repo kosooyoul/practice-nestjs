@@ -5,22 +5,22 @@ import { JwtService } from '@nestjs/jwt';
 import { ApolloError } from 'apollo-server-core';
 import { ISignature } from '@/auoi/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
-import { ISignInResult } from '../dto/sign/sign-in-result';
+import { IHanulseSignInResult } from '../dto/sign/sign-in-result';
 import { Nullable } from '@/common/types/native';
 import * as jwt from 'jsonwebtoken';
 import { HanulseUser } from '@/hanulse/domain/user.entity';
 
-const TAG = 'AccountSignService';
+const TAG = 'HanulseSignService';
 
 @Injectable()
-export class AccountSignService {
+export class HanulseSignService {
   constructor(
     @Inject(IRefreshTokenRepository)
     private readonly refreshTokenRepository: IRefreshTokenRepository,
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(user: HanulseUser, keep: boolean): Promise<ISignInResult> {
+  async signIn(user: HanulseUser, keep: boolean): Promise<IHanulseSignInResult> {
     const signature: any = {
       id: user.id,
       name: user.name,
@@ -29,7 +29,8 @@ export class AccountSignService {
 
     const accessToken = this.generateToken(signature, TokenType.ACCESS, keep);
     const refreshToken = this.generateToken(signature, TokenType.REFRESH, keep);
-    const expiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, keep));
+    const accessTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, keep));
+    const refreshTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.REFRESH, keep));
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: user._id,
@@ -40,14 +41,16 @@ export class AccountSignService {
     return {
       accessToken: accessToken,
       refreshToken: refreshToken,
-      expiresIn: expiresIn,
+      accessTokenExpiresIn: accessTokenExpiresIn,
+      refreshTokenExpiresIn: refreshTokenExpiresIn,
     };
   }
 
-  async signInBySignature(signature: ISignature): Promise<ISignInResult> {
+  async signInBySignature(signature: ISignature): Promise<IHanulseSignInResult> {
     const accessToken = this.generateToken(signature, TokenType.ACCESS, signature.keep);
     const refreshToken = this.generateToken(signature, TokenType.REFRESH, signature.keep);
-    const expiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, signature.keep));
+    const accessTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, signature.keep));
+    const refreshTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.REFRESH, signature.keep));
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: signature.id,
@@ -58,7 +61,8 @@ export class AccountSignService {
     return {
       accessToken: accessToken,
       refreshToken: refreshToken,
-      expiresIn: expiresIn,
+      accessTokenExpiresIn: accessTokenExpiresIn,
+      refreshTokenExpiresIn: refreshTokenExpiresIn,
     };
   }
 
@@ -70,7 +74,7 @@ export class AccountSignService {
     return true;
   }
 
-  async refreshSign(accessToken: string, refreshToken: string): Promise<ISignInResult> {
+  async refreshSign(accessToken: string, refreshToken: string): Promise<IHanulseSignInResult> {
     const signature = this.decodeToken(accessToken);
     if (signature == null) throw new ApolloError('AUTH_TOKEN_IS_NOT_VALID', TAG);
 

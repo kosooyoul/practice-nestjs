@@ -6,10 +6,10 @@ import { IHanulseUserMongoRepository } from '@/hanulse/infrastructure/mongo/user
 import { JwtModule } from '@nestjs/jwt';
 import { IRefreshTokenRepository } from '../infrastructure/interface/refresh-token.repository';
 import { RefreshTokenMongoRepository } from '../infrastructure/mongo/refresh-token.repository';
-import { AccountSignService } from './service/account-sign.service';
+import { HanulseSignService } from './service/sign.service';
 import { IndexService } from './service/index.service';
 
-const services = [IndexService, HanulseUserService, AccountSignService];
+const services = [IndexService, HanulseUserService, HanulseSignService];
 const repositories = [
   { provide: IHanulseUserRepository, useClass: IHanulseUserMongoRepository },
   { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository },

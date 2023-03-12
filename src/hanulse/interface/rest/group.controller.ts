@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Query } from '@nestjs/common';
 import { AuoiRestDeleteApi, AuoiRestGetApi, AuoiRestPatchApi, AuoiRestPostApi } from '@/auoi/interface/rest/api.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { AuoiSuccessResponse } from '@/auoi/interface/dto/response/success.response';
 
 // const TAG = 'HanulseGroupController';
 
@@ -23,15 +24,6 @@ class HanluseGroupUserResponse {
 }
 class HanluseGroupUsersResponse {
   [key: string]: any;
-}
-class SuccessResponse {
-  success: boolean;
-
-  static fromSuccess(success: boolean): SuccessResponse {
-    const response = new SuccessResponse();
-    response.success = success;
-    return response;
-  }
 }
 
 @ApiTags('Hanulse Group')
@@ -75,9 +67,9 @@ export class HanulseGroupController {
     return response;
   }
 
-  @AuoiRestDeleteApi(() => SuccessResponse, { path: '/:groupId([0-9a-fA-F]{24})', description: '그룹 삭제' })
-  async deleteGroup(@Param('groupId') groupId: string): Promise<SuccessResponse> {
-    return SuccessResponse.fromSuccess(true);
+  @AuoiRestDeleteApi(() => AuoiSuccessResponse, { path: '/:groupId([0-9a-fA-F]{24})', description: '그룹 삭제' })
+  async deleteGroup(@Param('groupId') groupId: string): Promise<AuoiSuccessResponse> {
+    return AuoiSuccessResponse.fromSuccess(true);
   }
 
   @AuoiRestGetApi(() => HanluseGroupUsersResponse, { path: '/:groupId([0-9a-fA-F]{24})/users', description: '그룹 유저 목록 조회' })
@@ -114,8 +106,8 @@ export class HanulseGroupController {
     return response;
   }
 
-  @AuoiRestDeleteApi(() => SuccessResponse, { path: '/:groupId([0-9a-fA-F]{24})/user/:userId([0-9a-fA-F]{24})', description: '그룹 유저 삭제' })
-  async deleteGroupUser(@Param('groupId') groupId: string, @Param('userId') userId: string): Promise<SuccessResponse> {
-    return SuccessResponse.fromSuccess(true);
+  @AuoiRestDeleteApi(() => AuoiSuccessResponse, { path: '/:groupId([0-9a-fA-F]{24})/user/:userId([0-9a-fA-F]{24})', description: '그룹 유저 삭제' })
+  async deleteGroupUser(@Param('groupId') groupId: string, @Param('userId') userId: string): Promise<AuoiSuccessResponse> {
+    return AuoiSuccessResponse.fromSuccess(true);
   }
 }

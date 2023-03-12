@@ -1,6 +1,7 @@
 import { Body, Controller, Param, Query } from '@nestjs/common';
 import { AuoiRestDeleteApi, AuoiRestGetApi, AuoiRestPatchApi, AuoiRestPostApi } from '@/auoi/interface/rest/api.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { AuoiSuccessResponse } from '@/auoi/interface/dto/response/success.response';
 
 // const TAG = 'HanulseClassController';
 
@@ -23,15 +24,6 @@ class HanluseStudentResponse {
 }
 class HanluseStudentsResponse {
   [key: string]: any;
-}
-class SuccessResponse {
-  success: boolean;
-
-  static fromSuccess(success: boolean): SuccessResponse {
-    const response = new SuccessResponse();
-    response.success = success;
-    return response;
-  }
 }
 
 @ApiTags('Hanulse Class')
@@ -75,9 +67,9 @@ export class HanulseClassController {
     return response;
   }
 
-  @AuoiRestDeleteApi(() => SuccessResponse, { path: '/:classId([0-9a-fA-F]{24})', description: '그룹 삭제' })
-  async deleteClass(@Param('classId') classId: string): Promise<SuccessResponse> {
-    return SuccessResponse.fromSuccess(true);
+  @AuoiRestDeleteApi(() => AuoiSuccessResponse, { path: '/:classId([0-9a-fA-F]{24})', description: '그룹 삭제' })
+  async deleteClass(@Param('classId') classId: string): Promise<AuoiSuccessResponse> {
+    return AuoiSuccessResponse.fromSuccess(true);
   }
 
   @AuoiRestGetApi(() => HanluseStudentsResponse, { path: '/:classId([0-9a-fA-F]{24})/students', description: '그룹 유저 목록 조회' })
@@ -112,8 +104,8 @@ export class HanulseClassController {
     return response;
   }
 
-  @AuoiRestDeleteApi(() => SuccessResponse, { path: '/:classId([0-9a-fA-F]{24})/student/:studentId([0-9a-fA-F]{24})', description: '그룹 유저 삭제' })
-  async deleteStudent(@Param('classId') classId: string, @Param('userId') userId: string): Promise<SuccessResponse> {
-    return SuccessResponse.fromSuccess(true);
+  @AuoiRestDeleteApi(() => AuoiSuccessResponse, { path: '/:classId([0-9a-fA-F]{24})/student/:studentId([0-9a-fA-F]{24})', description: '그룹 유저 삭제' })
+  async deleteStudent(@Param('classId') classId: string, @Param('userId') userId: string): Promise<AuoiSuccessResponse> {
+    return AuoiSuccessResponse.fromSuccess(true);
   }
 }

@@ -4,14 +4,9 @@ import { AuoiInputTransformer } from '@/auoi/common/decorators/input-transformer
 import { AuoiApiField } from '@/auoi/interface/common/api-field.decorator';
 
 @InputType()
-export default class RefreshSignRequest {
+export default class HanulseRefreshSignRequest {
   @AuoiInputTransformer.Trim()
   @AuoiInputValidator.IsNotEmptyString()
-  @AuoiApiField({
-    type: String,
-    description: '인증 리프레시 토큰',
-    nullable: false,
-    example: 'qwertyuiopasdfghjklzxcvbnm',
-  })
+  @AuoiApiField({ type: String, description: '갱신 토큰', nullable: false, example: 'qwertyuiopasdfghjklzxcvbnm' })
   refreshToken!: string;
 }

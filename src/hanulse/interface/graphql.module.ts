@@ -3,9 +3,9 @@ import { Module } from '@nestjs/common';
 import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.module';
 import { AuoiGraphQLModule } from '@/auoi/interface/graphql/graphql.module';
 import { HanulseMeResolver } from './graphql/me.resolver';
-import { SignResolver } from './graphql/sign.resolver';
+import { HanulseSignResolver } from './graphql/sign.resolver';
 
-export const HanulseGraphQLResolvers = [HanulseMeResolver, SignResolver];
+export const HanulseGraphQLResolvers = [HanulseMeResolver, HanulseSignResolver];
 
 @Module({
   imports: [
