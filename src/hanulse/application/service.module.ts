@@ -8,8 +8,9 @@ import { IRefreshTokenRepository } from '../infrastructure/interface/refresh-tok
 import { RefreshTokenMongoRepository } from '../infrastructure/mongo/refresh-token.repository';
 import { HanulseSignService } from './service/sign.service';
 import { IndexService } from './service/index.service';
+import { HanulsePrismaService } from '../infrastructure/prisma/prisma.service';
 
-const services = [IndexService, HanulseUserService, HanulseSignService];
+const services = [HanulsePrismaService, IndexService, HanulseUserService, HanulseSignService];
 const repositories = [
   { provide: IHanulseUserRepository, useClass: IHanulseUserMongoRepository },
   { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository },

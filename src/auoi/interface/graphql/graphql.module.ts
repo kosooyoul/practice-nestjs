@@ -56,7 +56,7 @@ export class AuoiGraphQLModule {
     return {
       module: options.module,
       imports: options.imports || [],
-      providers: [...options.providers, ...(options.resolvers || [])],
+      providers: [...(options.providers || []), ...(options.resolvers || [])],
     };
   }
 

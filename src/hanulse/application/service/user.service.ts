@@ -13,50 +13,34 @@ export class HanulseUserService {
   constructor(private readonly prismaService: HanulsePrismaService) {}
 
   async getUserById(userId: string): Promise<Nullable<HanulseUser>> {
-    const userFields = await this.prismaService.user.findUnique({ where: { id: userId } });
-    if (userFields == null) return null;
-    return HanulseUser.from(userFields);
+    return HanulseUser.find(this.prismaService, { id: userId });
   }
 
   async getUserByCellPhoneNumber(cellPhoneNumber: string): Promise<Nullable<HanulseUser>> {
-    const userFields = await this.prismaService.user.findUnique({ where: { cellPhoneNumber: cellPhoneNumber } });
-    if (userFields == null) return null;
-    return HanulseUser.from(userFields);
+    return HanulseUser.find(this.prismaService, { cellPhoneNumber: cellPhoneNumber });
   }
 
   async getUserByFilter(filter: IHanulseUserFilter): Promise<Nullable<HanulseUser>> {
-    const userFields = await this.prismaService.user.findUnique({ where: filter });
-    if (userFields == null) return null;
-    return HanulseUser.from(userFields);
+    return HanulseUser.find(this.prismaService, filter);
   }
 
   async isExistingUserCellPhoneNumber(cellPhoneNumber: string): Promise<boolean> {
-    const user = await this.prismaService.user.findUnique({ where: { cellPhoneNumber: cellPhoneNumber } });
-    return user != null;
+    return HanulseUser.exists(this.prismaService, { cellPhoneNumber: cellPhoneNumber });
   }
 
   async getUserByIdWithPassword(userId: string, password: string): Promise<Optional<HanulseUser>> {
-    return await this.getUserByFilterWithPassword({ id: userId }, password);
+    return this.getUserByFilterWithPassword({ id: userId }, password);
   }
 
   async getUserByFilterWithPassword(filter: IHanulseUserFilter, password: string): Promise<Optional<HanulseUser>> {
-    const user = await this.getUserByFilter(filter);
-    if (user == null) return null;
-
-    if (AuoiStringUtils.compareByBcrypt(password, user.hashedPassword) == false) {
-      return null;
+    const user = await HanulseUser.find(this.prismaService, filter);
+    if (user?.comparePassword(password)) {
+      return user;
     }
-    return user;
+    return null;
   }
 
   async createUser(fields: IHanulseUserFields): Promise<HanulseUser> {
-    const userFields = await this.prismaService.user.create({
-      data: {
-        name: fields.name,
-        cellPhoneNumber: fields.cellPhoneNumber,
-        hashedPassword: AuoiStringUtils.hashByBcrypt(fields.password),
-      },
-    });
-    return HanulseUser.from(userFields);
+    return HanulseUser.create(this.prismaService, fields);
   }
 }

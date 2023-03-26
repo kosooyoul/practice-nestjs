@@ -4,7 +4,6 @@ import { HanulseMongoDatabaseModule } from '@/hanulse/infrastructure/mongo.modul
 import { AuoiGraphQLModule } from '@/auoi/interface/graphql/graphql.module';
 import { HanulseMeResolver } from './graphql/me.resolver';
 import { HanulseSignResolver } from './graphql/sign.resolver';
-import { HanulsePrismaService } from '../infrastructure/prisma/prisma.service';
 
 export const HanulseGraphQLResolvers = [HanulseMeResolver, HanulseSignResolver];
 
@@ -14,7 +13,6 @@ export const HanulseGraphQLResolvers = [HanulseMeResolver, HanulseSignResolver];
       path: '/v0/graphql',
       module: HanulseGraphQLModule,
       imports: [HanulseMongoDatabaseModule, HanulseServiceModule],
-      providers: [HanulsePrismaService],
       resolvers: HanulseGraphQLResolvers,
     }),
   ],
