@@ -22,4 +22,10 @@ export class HanulseUser {
 
   @Prop({ default: Date.now })
   createdAt!: Date;
+
+  static from(fields: Partial<HanulseUser>) {
+    const user = new HanulseUser();
+    Object.assign(user, fields);
+    return user;
+  }
 }
