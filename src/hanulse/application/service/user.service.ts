@@ -1,22 +1,16 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HanulseUser } from '@/hanulse/domain/user.entity';
-import { IHanulseUserRepository } from '@/hanulse/infrastructure/interface/user.repository';
 import { IHanulseUserFilter } from '../dto/user/user-filter';
 import { IHanulseUserFields } from '../dto/user/user-fields';
-import * as bcrypt from 'bcrypt';
 import { Nullable, Optional } from '@/common/types/native';
 import { HanulsePrismaService } from '@/hanulse/infrastructure/prisma/prisma.service';
+import AuoiStringUtils from '@/auoi/common/utils/string.utils';
 
 // const TAG = "HanulseUserService"
 
 @Injectable()
 export class HanulseUserService {
-  constructor(
-    // Deprecated: Use Prisma instead of Mongoose
-    // @Inject(IHanulseUserRepository)
-    // private readonly userRepository: IHanulseUserRepository,
-    private readonly prismaService: HanulsePrismaService,
-  ) {}
+  constructor(private readonly prismaService: HanulsePrismaService) {}
 
   async getUserById(userId: string): Promise<Nullable<HanulseUser>> {
     const userFields = await this.prismaService.user.findUnique({ where: { id: userId } });
@@ -33,7 +27,7 @@ export class HanulseUserService {
   async getUserByFilter(filter: IHanulseUserFilter): Promise<Nullable<HanulseUser>> {
     const userFields = await this.prismaService.user.findUnique({ where: filter });
     if (userFields == null) return null;
-    return HanulseUser.from(userFields); 
+    return HanulseUser.from(userFields);
   }
 
   async isExistingUserCellPhoneNumber(cellPhoneNumber: string): Promise<boolean> {
@@ -49,24 +43,20 @@ export class HanulseUserService {
     const user = await this.getUserByFilter(filter);
     if (user == null) return null;
 
-    if (this.comparePassword(password, user.hashedPassword) == false) {
+    if (AuoiStringUtils.compareByBcrypt(password, user.hashedPassword) == false) {
       return null;
     }
     return user;
   }
 
   async createUser(fields: IHanulseUserFields): Promise<HanulseUser> {
-    const userFields = await this.prismaService.user.create({ data: {
-      name: fields.name,
-      cellPhoneNumber: fields.cellPhoneNumber,
-      hashedPassword: fields.hashedPassword,
-    } });
+    const userFields = await this.prismaService.user.create({
+      data: {
+        name: fields.name,
+        cellPhoneNumber: fields.cellPhoneNumber,
+        hashedPassword: AuoiStringUtils.hashByBcrypt(fields.password),
+      },
+    });
     return HanulseUser.from(userFields);
-  }
-
-  // TODO: Seperate this function to util class
-  private comparePassword(password: string, hashedPassword: string): boolean {
-    // bcrypt.genSaltSync(SignUtils.SALT_ROUND, SignUtils.SALT_MINOR)
-    return bcrypt.compareSync(password, hashedPassword);
   }
 }

@@ -2,6 +2,7 @@ import * as base64 from 'base64-js';
 import * as uuidBase64 from 'uuid-base64';
 import * as uuid from 'uuid';
 import * as md5 from 'md5';
+import * as bcrypt from 'bcrypt';
 
 export default class AuoiStringUtils {
   static toBase64(text: string): string {
@@ -30,7 +31,7 @@ export default class AuoiStringUtils {
     return uuidBase64.encode(uuid.v4());
   }
 
-  static hashObject(obj: any): string {
+  static hashObjectByMd5(obj: any): string {
     return md5(JSON.stringify(obj));
   }
 
@@ -50,5 +51,13 @@ export default class AuoiStringUtils {
 
   static ellipsis(text: string, length: number): string {
     return text.length > length ? text.slice(0, length) + '...' : text;
+  }
+
+  static hashByBcrypt(text: string): string {
+    return bcrypt.hashSync(text, bcrypt.genSaltSync(10));
+  }
+
+  static compareByBcrypt(text: string, hashedText: string): boolean {
+    return bcrypt.compareSync(text, hashedText);
   }
 }

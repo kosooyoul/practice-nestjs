@@ -71,7 +71,7 @@ export class AuoiGraphQLModule {
   }
 
   private static saveTempTextFile(text: string): string {
-    const hash = AuoiStringUtils.hashObject(text);
+    const hash = AuoiStringUtils.hashObjectByMd5(text);
     const filepath = join(process.cwd(), `/.temp/${hash}`);
 
     if (existsSync(filepath) == false) {
