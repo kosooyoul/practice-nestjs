@@ -1,7 +1,7 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
 import { ObjectId } from '@/common/types/mongo';
 import { Nullable } from '@/common/types/native';
-import { HanulsePrismaService } from '../infrastructure/prisma/prisma.service';
+import { HanulsePrismaRepository } from '../infrastructure/prisma/prisma.service';
 import { IHanulseUserFilter } from '../application/dto/user/user-filter';
 import AuoiStringUtils from '@/auoi/common/utils/string.utils';
 import { IHanulseUserFields } from '../application/dto/user/user-fields';
@@ -32,7 +32,7 @@ export class HanulseUser {
     return AuoiStringUtils.compareByBcrypt(password, this.hashedPassword);
   }
 
-  static async create(prismaService: HanulsePrismaService, fields: IHanulseUserFields): Promise<HanulseUser> {
+  static async create(prismaService: HanulsePrismaRepository, fields: IHanulseUserFields): Promise<HanulseUser> {
     const raw = await prismaService.user.create({
       data: {
         name: fields.name,
@@ -43,12 +43,12 @@ export class HanulseUser {
     return HanulseUser.from(raw);
   }
 
-  static async find(prismaService: HanulsePrismaService, filter: IHanulseUserFilter): Promise<Nullable<HanulseUser>> {
+  static async find(prismaService: HanulsePrismaRepository, filter: IHanulseUserFilter): Promise<Nullable<HanulseUser>> {
     const raw = await prismaService.user.findUnique({ where: filter });
     return raw ? HanulseUser.from(raw) : null;
   }
 
-  static async exists(prismaService: HanulsePrismaService, filter: IHanulseUserFilter): Promise<boolean> {
+  static async exists(prismaService: HanulsePrismaRepository, filter: IHanulseUserFilter): Promise<boolean> {
     const raw = await prismaService.user.findUnique({ where: filter });
     return !!raw;
   }
