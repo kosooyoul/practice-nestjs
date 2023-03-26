@@ -53,6 +53,7 @@
     "graphql": "^16.5.0",
     "graphql-type-json": "^0.3.2",
     "graphql-upload": "^13.0.0",
+    "hbs": "^4.2.0",
     "lodash": "^4.17.21",
     "md5": "^2.3.0",
     "moment": "^2.29.3",

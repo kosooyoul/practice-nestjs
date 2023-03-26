@@ -5,10 +5,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { IRefreshTokenRepository } from '../infrastructure/interface/refresh-token.repository';
 import { RefreshTokenMongoRepository } from '../infrastructure/mongo/refresh-token.repository';
 import { HanulseSignService } from './service/sign.service';
-import { IndexService } from './service/index.service';
 import { HanulsePrismaRepository } from '../infrastructure/prisma/prisma.service';
 
-const services = [HanulsePrismaRepository, IndexService, HanulseUserService, HanulseSignService];
+const services = [HanulsePrismaRepository, HanulseUserService, HanulseSignService];
 const repositories = [HanulsePrismaRepository, { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository }];
 
 @Module({

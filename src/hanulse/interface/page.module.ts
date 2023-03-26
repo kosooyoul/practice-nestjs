@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HanulseServiceModule } from '@/hanulse/application/service.module';
-import { IndexController } from './page/index.controller';
+import { HanulseIndexController } from './page/index.controller';
+import { HanulseSimpleController } from './page/simple.controller';
 
 @Module({
-  imports: [HanulseServiceModule],
-  controllers: [IndexController],
+  // imports: [HanulseServiceModule],
+  controllers: [HanulseIndexController, HanulseSimpleController],
 })
 export class HanulsePageModule {}

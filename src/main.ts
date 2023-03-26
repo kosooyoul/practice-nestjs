@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { graphqlUploadExpress } from 'graphql-upload';
+import { join } from 'path';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -15,6 +16,10 @@ async function bootstrap() {
       maxFiles: 10,
     }),
   );
+
+  app.useStaticAssets(join(__dirname, '..', 'assets/public'));
+  app.setBaseViewsDir(join(__dirname, '..', 'assets/views'));
+  app.setViewEngine('hbs');
 
   const config = new DocumentBuilder()
     .setTitle(process.env.TITLE)
