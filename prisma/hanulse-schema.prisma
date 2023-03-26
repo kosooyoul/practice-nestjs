@@ -9,15 +9,80 @@ datasource db {
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
   cellPhoneNumber String
-  hashedPassword String?
-  updatedAt DateTime @db.Date @default(now())
-  createdAt DateTime @db.Date @default(now())
+  hashedPassword  String?
+  updatedAt       DateTime    @default(now()) @db.Date
+  createdAt       DateTime    @default(now()) @db.Date
+  // Relations 1:M
+  students        Student[]
+  groupUsers      GroupUser[]
 
-  @@index([name])
   @@unique([cellPhoneNumber])
-
+  @@index([name])
   @@map("users")
+}
+
+model Group {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  description String
+  updatedAt   DateTime    @default(now()) @db.Date
+  createdAt   DateTime    @default(now()) @db.Date
+  // Relations 1:M
+  students    Student[]
+  groupUsers  GroupUser[]
+  classes     Class[]
+
+  @@map("groups")
+}
+
+model GroupUser {
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String
+  cellPhoneNumber String
+  groupId         String    @db.ObjectId
+  group           Group     @relation(fields: [groupId], references: [id])
+  userId          String?   @db.ObjectId
+  user            User?     @relation(fields: [userId], references: [id])
+  updatedAt       DateTime  @default(now()) @db.Date
+  createdAt       DateTime  @default(now()) @db.Date
+  // Relations 1:M
+  student         Student[]
+  // Relations M:M
+  classIds        String[]  @db.ObjectId
+  classes         Class[]   @relation(fields: [classIds], references: [id])
+
+  @@map("group_users")
+}
+
+model Class {
+  id                  String      @id @default(auto()) @map("_id") @db.ObjectId
+  title               String
+  description         String
+  groupId             String      @db.ObjectId
+  group               Group       @relation(fields: [groupId], references: [id])
+  managerGroupUserIds String[]    @default([]) @db.ObjectId
+  managerGroupUsers   GroupUser[] @relation(fields: [managerGroupUserIds], references: [id])
+  updatedAt           DateTime    @default(now()) @db.Date
+  createdAt           DateTime    @default(now()) @db.Date
+
+  @@map("classes")
+}
+
+model Student {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String?    @db.ObjectId
+  user        User?      @relation(fields: [userId], references: [id])
+  groupId     String     @db.ObjectId
+  group       Group      @relation(fields: [groupId], references: [id])
+  groupUserId String?    @db.ObjectId
+  groupUser   GroupUser? @relation(fields: [groupUserId], references: [id])
+  updatedAt   DateTime   @default(now()) @db.Date
+  createdAt   DateTime   @default(now()) @db.Date
+
+  @@index([userId])
+  @@index([groupId])
+  @@map("students")
 }

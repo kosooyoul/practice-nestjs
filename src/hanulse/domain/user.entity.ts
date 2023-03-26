@@ -32,6 +32,7 @@ export class HanulseUser {
     return AuoiStringUtils.compareByBcrypt(password, this.hashedPassword);
   }
 
+  /** 사용자 생성 */
   static async create(prismaService: HanulsePrismaRepository, fields: IHanulseUserFields): Promise<HanulseUser> {
     const raw = await prismaService.user.create({
       data: {
@@ -40,20 +41,23 @@ export class HanulseUser {
         hashedPassword: AuoiStringUtils.hashByBcrypt(fields.password),
       },
     });
-    return HanulseUser.from(raw);
+    return HanulseUser.fromRaw(raw);
   }
 
+  /** 사용자 탐색 */
   static async find(prismaService: HanulsePrismaRepository, filter: IHanulseUserFilter): Promise<Nullable<HanulseUser>> {
     const raw = await prismaService.user.findUnique({ where: filter });
-    return raw ? HanulseUser.from(raw) : null;
+    return raw ? HanulseUser.fromRaw(raw) : null;
   }
 
+  /** 사용자 존재 여부 */
   static async exists(prismaService: HanulsePrismaRepository, filter: IHanulseUserFilter): Promise<boolean> {
     const raw = await prismaService.user.findUnique({ where: filter });
     return !!raw;
   }
 
-  static from(raw: Partial<HanulseUser>) {
+  /** 사용자 객체 생성 */
+  static fromRaw(raw: Partial<HanulseUser>) {
     const user = new HanulseUser();
     Object.assign(user, raw);
     return user;

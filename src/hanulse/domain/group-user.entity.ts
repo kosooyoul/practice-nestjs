@@ -32,4 +32,11 @@ export class HanulseGroupUser {
 
   @Prop({ default: Date.now })
   createdAt!: Date;
+
+  /** 그룹 사용자 생성 */
+  static fromRaw(raw: Partial<HanulseGroupUser>): HanulseGroupUser {
+    const groupUser = new HanulseGroupUser();
+    Object.assign(groupUser, raw);
+    return groupUser;
+  }
 }

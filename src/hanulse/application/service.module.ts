@@ -9,10 +9,7 @@ import { IndexService } from './service/index.service';
 import { HanulsePrismaRepository } from '../infrastructure/prisma/prisma.service';
 
 const services = [HanulsePrismaRepository, IndexService, HanulseUserService, HanulseSignService];
-const repositories = [
-  HanulsePrismaRepository,
-  { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository },
-];
+const repositories = [HanulsePrismaRepository, { provide: IRefreshTokenRepository, useClass: RefreshTokenMongoRepository }];
 
 @Module({
   imports: [HanulseMongoDatabaseModule, JwtModule],

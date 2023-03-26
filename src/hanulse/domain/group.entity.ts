@@ -18,4 +18,11 @@ export class HanulseGroup {
 
   @Prop({ default: Date.now })
   createdAt!: Date;
+
+  /** 그룹 객체 생성 */
+  static fromRaw(raw: Partial<HanulseGroup>): HanulseGroup {
+    const group = new HanulseGroup();
+    Object.assign(group, raw);
+    return group;
+  }
 }
