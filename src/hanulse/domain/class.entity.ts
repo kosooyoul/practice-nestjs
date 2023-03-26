@@ -1,6 +1,5 @@
 import { Index, ModelOptions, Prop } from '@typegoose/typegoose';
 import { ObjectId } from '@/common/types/mongo';
-import { HanulseUser } from './user.entity';
 import { HanulseGroup } from './group.entity';
 import { HanulseGroupUser } from './group-user.entity';
 
