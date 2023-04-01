@@ -1,12 +1,10 @@
 import { Controller, UseGuards } from '@nestjs/common';
 import { HanulseUserService } from '@/hanulse/application/service/user.service';
-import { Signature } from '@/auoi/auth/signature.decorators';
-import { ISignature } from '@/auoi/auth/auth.interface';
 import { ApolloError } from 'apollo-server-core';
-import { SignatureAuthGuard } from '@/auoi/auth/signature-auth.guard';
 import HanulseMeResponse from '@/hanulse/interface/dto/user/response/me.response';
 import { AuoiRestGetApi } from '@/auoi/interface/rest/api.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { Signature, ISignature } from '@/hanulse/common/signature.decorator';
 
 const TAG = 'HanulseMeController';
 
@@ -15,7 +13,6 @@ const TAG = 'HanulseMeController';
 export class HanulseMeController {
   constructor(private readonly userService: HanulseUserService) {}
 
-  @UseGuards(SignatureAuthGuard)
   @AuoiRestGetApi(() => HanulseMeResponse, {
     path: '/',
     description: '내 정보 조회',

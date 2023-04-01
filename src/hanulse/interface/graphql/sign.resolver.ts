@@ -1,17 +1,14 @@
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { SignatureAuthGuard } from '@/auoi/auth/signature-auth.guard';
 import { ApolloError } from 'apollo-server-core';
 import { HanulseSignService } from '@/hanulse/application/service/sign.service';
 import HanulseSignInRequest from '../dto/sign/request/sign-in.request';
-import { Signature } from '@/auoi/auth/signature.decorators';
-import { Authorization } from '@/auoi/auth/authorization.decorators';
-import { ISignature } from '@/auoi/auth/auth.interface';
 import HanulseRefreshSignRequest from '../dto/sign/request/refresh-sign.request';
 import HanulseSignInResponse from '../dto/sign/response/sign-in.response';
 import { HanulseUserService } from '@/hanulse/application/service/user.service';
 import { Nullable } from '@/common/types/native';
 import { AuoiSuccessResponse } from '@/auoi/interface/dto/response/success.response';
+import { Signature, ISignature, Authorization } from '@/hanulse/common/signature.decorator';
 
 const TAG = 'HanulseSignResolver';
 
@@ -25,12 +22,11 @@ export class HanulseSignResolver {
     const user = await this.userService.getUserByFilterWithPassword(request.toUserFilter(), request.password);
     if (user == null) throw new ApolloError('USER_PASSWORD_DOES_NOT_MATCH', TAG);
 
-    const result = await this.signService.signIn(user, request.keep);
+    const result = await this.signService.signIn(user);
 
     return HanulseSignInResponse.fromSignInResult(result);
   }
 
-  @UseGuards(SignatureAuthGuard)
   @Mutation(() => AuoiSuccessResponse, { description: '로그아웃' })
   async signOut(@Signature() signature: ISignature): Promise<AuoiSuccessResponse> {
     const success = await this.signService.signOut(signature);

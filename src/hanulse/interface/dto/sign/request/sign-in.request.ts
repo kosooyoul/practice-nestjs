@@ -12,9 +12,6 @@ export default class HanulseSignInRequest {
   @AuoiApiField({ type: String, description: '사용자 암호', nullable: false, example: 'a123456!' })
   password?: string;
 
-  @AuoiApiField({ type: Boolean, description: '로그인 유지 여부', nullable: true, defaultValue: false, example: 'true' })
-  keep!: boolean;
-
   toUserFilter(): IHanulseUserFilter {
     return {
       identity: this.identity,

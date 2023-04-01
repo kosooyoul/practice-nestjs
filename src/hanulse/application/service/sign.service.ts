@@ -3,12 +3,12 @@ import { TokenType } from '@/common/enums';
 import { Inject, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ApolloError } from 'apollo-server-core';
-import { ISignature } from '@/auoi/auth/auth.interface';
 import { IRefreshTokenRepository } from '@/hanulse/infrastructure/interface/refresh-token.repository';
 import { IHanulseSignInResult } from '../dto/sign/sign-in-result';
 import { Nullable } from '@/common/types/native';
 import * as jwt from 'jsonwebtoken';
 import { HanulseUser } from '@/hanulse/domain/user.entity';
+import { ISignature } from '@/hanulse/common/signature.decorator';
 
 const TAG = 'HanulseSignService';
 
@@ -20,17 +20,17 @@ export class HanulseSignService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signIn(user: HanulseUser, keep: boolean): Promise<IHanulseSignInResult> {
+  async signIn(user: HanulseUser): Promise<IHanulseSignInResult> {
     const signature: any = {
       id: user.id,
       name: user.name,
       identity: user.cellPhoneNumber,
     };
 
-    const accessToken = this.generateToken(signature, TokenType.ACCESS, keep);
-    const refreshToken = this.generateToken(signature, TokenType.REFRESH, keep);
-    const accessTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, keep));
-    const refreshTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.REFRESH, keep));
+    const accessToken = this.generateToken(signature, TokenType.ACCESS);
+    const refreshToken = this.generateToken(signature, TokenType.REFRESH);
+    const accessTokenExpiresIn = new Date(Date.now() + Time.MILLS_1_DAY);
+    const refreshTokenExpiresIn = new Date(Date.now() + Time.MILLS_30_DAYS);
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: user._id,
@@ -47,10 +47,10 @@ export class HanulseSignService {
   }
 
   async signInBySignature(signature: ISignature): Promise<IHanulseSignInResult> {
-    const accessToken = this.generateToken(signature, TokenType.ACCESS, signature.keep);
-    const refreshToken = this.generateToken(signature, TokenType.REFRESH, signature.keep);
-    const accessTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.ACCESS, signature.keep));
-    const refreshTokenExpiresIn = new Date(Date.now() + this.getExpiresIn(TokenType.REFRESH, signature.keep));
+    const accessToken = this.generateToken(signature, TokenType.ACCESS);
+    const refreshToken = this.generateToken(signature, TokenType.REFRESH);
+    const accessTokenExpiresIn = new Date(Date.now() + Time.MILLS_1_DAY);
+    const refreshTokenExpiresIn = new Date(Date.now() + Time.MILLS_30_DAYS);
 
     await this.refreshTokenRepository.createRefreshToken({
       signatureId: signature.id,
@@ -87,28 +87,19 @@ export class HanulseSignService {
     return await this.signInBySignature(signature);
   }
 
-  private generateToken(fields: any, tokenType: TokenType, keep: boolean) {
+  private generateToken(fields: any, tokenType: TokenType) {
     const token = this.jwtService.sign(
       {
         ...fields,
-        keep: keep,
-        tokenType: TokenType.ACCESS,
+        tokenType: tokenType,
         generatedAt: new Date(),
       },
       {
-        expiresIn: this.getExpiresIn(tokenType, keep),
+        expiresIn: tokenType === TokenType.ACCESS ? Time.MILLS_1_DAY : Time.MILLS_30_DAYS,
         secret: tokenType === TokenType.ACCESS ? process.env.ACCESS_TOKEN_JWT_SECRET : process.env.REFRESH_TOKEN_JWT_SECRET,
       },
     );
     return token;
-  }
-
-  private getExpiresIn(tokenType: TokenType, keep: boolean) {
-    if (tokenType == TokenType.ACCESS) {
-      return process.env.TESTABLE ? (keep ? Time.MILLS_1_DAY : Time.MILLS_1_MINUTE) : keep ? Time.MILLS_7_DAYS : Time.MILLS_1_DAY;
-    } else {
-      return keep ? Time.MILLS_1_YEAR : Time.MILLS_1_YEAR;
-    }
   }
 
   private decodeToken(token: string): Nullable<ISignature> {
@@ -120,10 +111,6 @@ export class HanulseSignService {
 
       return {
         id: data['id'],
-        identity: data['identity'],
-        name: data['name'],
-        keep: data['keep'],
-        tokenType: data['tokenType'],
       };
     } catch (e: any) {
       // Do nothing
