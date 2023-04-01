@@ -39,7 +39,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
       }
 
       // Note: for another module
-      this.eventEmitter.emit('logger/log', log, message);
+      this.eventEmitter.emit('logger/api-log', log, message);
     };
 
     next();
